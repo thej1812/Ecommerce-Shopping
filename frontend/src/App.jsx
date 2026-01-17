@@ -1,5 +1,6 @@
 import "./App.css";
 import Navbar from "./components/Navbar";
+import AdminProducts from "./pages/AdminProducts";
 
 import Home from "./pages/Home";
 import Products from "./pages/Products";
@@ -36,6 +37,7 @@ export default function App() {
           </AdminRoute>
         }
       />
+    <Route path="/admin/products" element={<AdminProducts />} />
 
       <Route path="/admin/add-product" element={<AddProduct />} />
       <Route path="/admin/orders" element={<Orders />} />
