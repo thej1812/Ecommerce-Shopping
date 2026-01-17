@@ -6,7 +6,7 @@ import connectDB from "./config/db.js";
 import productRoutes from "./routes/productRoutes.js";
 import orderRoutes from "./routes/orderRoutes.js";
 import authRoutes from "./routes/authRoutes.js";
-
+import categoryRoutes from "./routes/categoryRoutes.js";
 dotenv.config();
 connectDB();
 
@@ -28,7 +28,7 @@ app.use(express.json());
 app.use("/api/products", productRoutes);
 app.use("/api/orders", orderRoutes);
 app.use("/api/auth", authRoutes);
-
+app.use("/api/categories", categoryRoutes);
 /* ✅ IMAGE ACCESS */
 app.use("/uploads", express.static("uploads"));
 
