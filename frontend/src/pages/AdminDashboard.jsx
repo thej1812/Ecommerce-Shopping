@@ -24,6 +24,12 @@ export default function AdminDashboard() {
         >
           Manage Products
         </a>
+        <a
+          href="/admin/categories"
+          className="block bg-black text-white px-4 py-2 w-fit"
+        >
+          Manage Categories
+        </a>
        
       </div>
     </div>
