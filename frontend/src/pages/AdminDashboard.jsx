@@ -18,6 +18,13 @@ export default function AdminDashboard() {
         >
           View Orders
         </a>
+        <a
+          href="/admin/products"
+          className="block bg-gray-800 text-white px-4 py-2 w-fit"
+        >
+          Manage Products
+        </a>
+       
       </div>
     </div>
   );
