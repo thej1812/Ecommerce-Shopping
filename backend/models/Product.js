@@ -12,7 +12,12 @@ const productSchema = new mongoose.Schema({
   quantity: {
     type: Number,
     default: 0
-  }
+  },
+  category: {
+  type: mongoose.Schema.Types.ObjectId,
+  ref: "Category"
+},
+
 });
 
 export default mongoose.model("Product", productSchema);
