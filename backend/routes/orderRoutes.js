@@ -2,6 +2,7 @@ import express from "express";
 import Order from "../models/Order.js";
 import authMiddleware from "../middleware/authMiddleware.js";
 import adminMiddleware from "../middleware/adminMiddleware.js";
+import Product from "../models/Product.js";
 
 const router = express.Router();
 
@@ -10,11 +11,21 @@ const router = express.Router();
 =========================== */
 router.post("/", async (req, res) => {
   try {
+    const { products } = req.body;
+
+    // Reduce product quantity
+    for (const item of products) {
+      await Product.findByIdAndUpdate(item._id, {
+        $inc: { quantity: -item.qty }
+      });
+    }
+
     const order = new Order(req.body);
     await order.save();
+
     res.json({ message: "Order saved" });
   } catch (error) {
-    res.status(500).json({ message: "Failed to create order" });
+    res.status(500).json({ message: "Order failed" });
   }
 });
 
