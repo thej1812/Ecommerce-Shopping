@@ -1,11 +1,20 @@
 import axios from "axios";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+
 
 export default function AddProduct() {
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
   const [quantity, setQuantity] = useState(0);
   const [image, setImage] = useState(null);
+const [categories, setCategories] = useState([]);
+const [category, setCategory] = useState("");
+
+useEffect(() => {
+  fetch("http://localhost:5000/api/categories")
+    .then(res => res.json())
+    .then(data => setCategories(data));
+}, []);
 
   const submit = async () => {
     try {
@@ -15,6 +24,7 @@ export default function AddProduct() {
       formData.append("price", Number(price));
       formData.append("quantity", Number(quantity));
       formData.append("image", image);
+      formData.append("category", category);
 
       await axios.post(
         "http://localhost:5000/api/products/add",
@@ -72,6 +82,17 @@ export default function AddProduct() {
         className="border p-2 my-2 block"
         onChange={e => setImage(e.target.files[0])}
       />
+  <select
+  className="border p-2 my-2 block"
+  onChange={e => setCategory(e.target.value)}
+>
+  <option value="">Select Category</option>
+  {categories.map(cat => (
+    <option key={cat._id} value={cat._id}>
+      {cat.name}
+    </option>
+  ))}
+</select>
 
       <button
         onClick={submit}
