@@ -5,7 +5,10 @@ import authMiddleware from "../middleware/authMiddleware.js";
 import adminMiddleware from "../middleware/adminMiddleware.js";
 
 const router = express.Router();
-// ADMIN: UPDATE PRODUCT QUANTITY
+
+/* =========================
+   ADMIN: UPDATE PRODUCT QUANTITY
+========================= */
 router.put(
   "/:id/quantity",
   authMiddleware,
@@ -24,7 +27,10 @@ router.put(
     }
   }
 );
-// ADMIN: DELETE PRODUCT
+
+/* =========================
+   ADMIN: DELETE PRODUCT
+========================= */
 router.delete(
   "/:id",
   authMiddleware,
@@ -39,32 +45,46 @@ router.delete(
   }
 );
 
+/* =========================
+   ADMIN: ADD PRODUCT (WITH CATEGORY)
+========================= */
 router.post(
   "/add",
   authMiddleware,
   adminMiddleware,
- 
   upload.single("image"),
   async (req, res) => {
     try {
       const product = new Product({
-  name: req.body.name,
-  price: Number(req.body.price),
-  quantity: Number(req.body.quantity),
-  image: req.file.filename
-});
+        name: req.body.name,
+        price: Number(req.body.price),
+        quantity: Number(req.body.quantity),
+        category: req.body.category, // ✅ CATEGORY ADDED HERE
+        image: req.file?.filename
+      });
 
       await product.save();
       res.json(product);
     } catch (err) {
-      console.log(err);
-      res.status(500).json("Server error");
+      console.error(err);
+      res.status(500).json({ message: "Server error" });
     }
   }
 );
 
+/* =========================
+   USER + ADMIN: GET PRODUCTS
+   (WITH CATEGORY FILTER)
+========================= */
 router.get("/", async (req, res) => {
-  res.json(await Product.find());
+  const filter = {};
+
+  if (req.query.category) {
+    filter.category = req.query.category;
+  }
+
+  const products = await Product.find(filter);
+  res.json(products);
 });
 
 export default router;
