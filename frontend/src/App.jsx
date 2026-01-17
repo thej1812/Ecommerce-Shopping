@@ -13,6 +13,7 @@ import AdminRoute from "./components/AdminRoute";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import MyOrders from "./pages/MyOrders";
+import AdminCategories from "./pages/AdminCategories";
 import { Routes, Route } from "react-router-dom";
 
 export default function App() {
@@ -38,7 +39,7 @@ export default function App() {
         }
       />
     <Route path="/admin/products" element={<AdminProducts />} />
-
+      <Route path="/admin/categories" element={<AdminCategories />} />
       <Route path="/admin/add-product" element={<AddProduct />} />
       <Route path="/admin/orders" element={<Orders />} />
     </Routes></>
