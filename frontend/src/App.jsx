@@ -14,6 +14,8 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import MyOrders from "./pages/MyOrders";
 import AdminCategories from "./pages/AdminCategories";
+import ProductDetail from "./pages/ProductDetail";
+import AdminProductImages from "./pages/AdminProductImages";
 import { Routes, Route } from "react-router-dom";
 
 export default function App() {
@@ -30,6 +32,7 @@ export default function App() {
 
 <Route path="/my-orders" element={<MyOrders />} />
 
+
       <Route
         path="/admin"
         element={
@@ -42,6 +45,13 @@ export default function App() {
       <Route path="/admin/categories" element={<AdminCategories />} />
       <Route path="/admin/add-product" element={<AddProduct />} />
       <Route path="/admin/orders" element={<Orders />} />
+      <Route path="/product/:id" element={<ProductDetail />} />
+
+      <Route
+  path="/admin/products/:id/images"
+  element={<AdminProductImages />}
+/>
+
     </Routes></>
   );
 }
