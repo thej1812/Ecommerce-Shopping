@@ -1,20 +1,29 @@
 import axios from "axios";
-import { useState, useEffect } from "react";
-
+import { useEffect, useState } from "react";
 
 export default function AddProduct() {
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
   const [quantity, setQuantity] = useState(0);
-  const [image, setImage] = useState(null);
-const [categories, setCategories] = useState([]);
-const [category, setCategory] = useState("");
+const [description, setDescription] = useState("");
 
-useEffect(() => {
-  fetch("http://localhost:5000/api/categories")
-    .then(res => res.json())
-    .then(data => setCategories(data));
-}, []);
+  // 🔹 CATEGORY STATE
+  const [categories, setCategories] = useState([]);
+  const [category, setCategory] = useState("");
+
+  // 🔹 IMAGE STATES (4 inputs)
+  const [img1, setImg1] = useState(null);
+  const [img2, setImg2] = useState(null);
+  const [img3, setImg3] = useState(null);
+  const [img4, setImg4] = useState(null);
+
+  // 🔹 FETCH CATEGORIES
+  useEffect(() => {
+    fetch("http://localhost:5000/api/categories")
+      .then(res => res.json())
+      .then(data => setCategories(data))
+      .catch(err => console.error(err));
+  }, []);
 
   const submit = async () => {
     try {
@@ -23,8 +32,13 @@ useEffect(() => {
       formData.append("name", name);
       formData.append("price", Number(price));
       formData.append("quantity", Number(quantity));
-      formData.append("image", image);
       formData.append("category", category);
+      formData.append("description", description);
+
+      if (img1) formData.append("images", img1);
+      if (img2) formData.append("images", img2);
+      if (img3) formData.append("images", img3);
+      if (img4) formData.append("images", img4);
 
       await axios.post(
         "http://localhost:5000/api/products/add",
@@ -38,13 +52,18 @@ useEffect(() => {
 
       alert("Product added successfully");
 
-      // optional: clear form
+      // optional reset
       setName("");
       setPrice("");
       setQuantity(0);
-      setImage(null);
-    } catch (error) {
-      console.error(error);
+      setCategory("");
+      setImg1(null);
+      setImg2(null);
+      setImg3(null);
+      setImg4(null);
+
+    } catch (err) {
+      console.error(err);
       alert("Failed to add product");
     }
   };
@@ -55,7 +74,7 @@ useEffect(() => {
 
       <input
         placeholder="Name"
-        className="border p-2 my-2 block"
+        className="border p-2 block my-2"
         value={name}
         onChange={e => setName(e.target.value)}
       />
@@ -63,40 +82,48 @@ useEffect(() => {
       <input
         type="number"
         placeholder="Price"
-        className="border p-2 my-2 block"
+        className="border p-2 block my-2"
         value={price}
         onChange={e => setPrice(e.target.value)}
       />
+      <textarea
+  placeholder="Product Description"
+  className="border p-2 my-2 block w-full"
+  onChange={e => setDescription(e.target.value)}
+/>
 
       <input
         type="number"
-        min="0"
         placeholder="Quantity"
-        className="border p-2 my-2 block"
+        className="border p-2 block my-2"
         value={quantity}
         onChange={e => setQuantity(Number(e.target.value))}
       />
 
-      <input
-        type="file"
+      {/* 🔹 CATEGORY DROPDOWN */}
+      <select
         className="border p-2 my-2 block"
-        onChange={e => setImage(e.target.files[0])}
-      />
-  <select
-  className="border p-2 my-2 block"
-  onChange={e => setCategory(e.target.value)}
->
-  <option value="">Select Category</option>
-  {categories.map(cat => (
-    <option key={cat._id} value={cat._id}>
-      {cat.name}
-    </option>
-  ))}
-</select>
+        value={category}
+        onChange={e => setCategory(e.target.value)}
+      >
+        <option value="">Select Category</option>
+        {categories.map(cat => (
+          <option key={cat._id} value={cat._id}>
+            {cat.name}
+          </option>
+        ))}
+      </select>
+
+      {/* 🔹 4 IMAGE INPUTS */}
+      <input type="file" onChange={e => setImg1(e.target.files[0])} />
+      <input type="file" onChange={e => setImg2(e.target.files[0])} />
+      <input type="file" onChange={e => setImg3(e.target.files[0])} />
+      <input type="file" onChange={e => setImg4(e.target.files[0])} />
 
       <button
+        type="button"
         onClick={submit}
-        className="bg-black text-white px-4 py-2 mt-3"
+        className="bg-black text-white px-4 py-2 mt-4"
       >
         Add Product
       </button>
