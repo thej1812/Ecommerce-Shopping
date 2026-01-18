@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import RelatedProducts from "../components/RelatedProducts";
 
 export default function Orders() {
   const [orders, setOrders] = useState([]);
@@ -115,6 +116,7 @@ export default function Orders() {
           )}
         </div>
       ))}
+      
     </div>
   );
 }
