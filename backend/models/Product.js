@@ -13,10 +13,21 @@ const productSchema = new mongoose.Schema({
     type: Number,
     default: 0
   },
+  
+    images: {
+      type: [String], // array of image filenames
+      default: []
+    },
+
   category: {
   type: mongoose.Schema.Types.ObjectId,
   ref: "Category"
 },
+description: {
+  type: String,
+  default: ""
+},
+
 
 });
 
