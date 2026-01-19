@@ -106,17 +106,23 @@ router.put(
     }
   }
 );
+
 /* =========================
-   GET SINGLE PRODUCT
+   GET LATEST 5 PRODUCTS
 ========================= */
-router.get("/:id", async (req, res) => {
+router.get("/latest", async (req, res) => {
   try {
-    const product = await Product.findById(req.params.id);
-    res.json(product);
-  } catch {
-    res.status(404).json({ message: "Product not found" });
+    const products = await Product.find()
+      .sort({ createdAt: -1 })
+      .limit(5);
+
+    res.json(products);
+  } catch (error) {
+    res.status(500).json({ message: "Failed to fetch latest products" });
   }
 });
+
+
 
 /* =========================
    USER + ADMIN: GET PRODUCTS
@@ -140,6 +146,19 @@ router.get("/", async (req, res) => {
     res.status(500).json({ message: "Failed to fetch products" });
   }
 });
+
+/* =========================
+   GET SINGLE PRODUCT
+========================= */
+router.get("/:id", async (req, res) => {
+  try {
+    const product = await Product.findById(req.params.id);
+    res.json(product);
+  } catch {
+    res.status(404).json({ message: "Product not found" });
+  }
+});
+
 
 
 export default router;
