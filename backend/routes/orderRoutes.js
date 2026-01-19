@@ -29,6 +29,20 @@ router.post("/", async (req, res) => {
   }
 });
 
+// CHECK IF USER BOUGHT A PRODUCT
+router.get(
+  "/has-bought/:productId",
+  authMiddleware,
+  async (req, res) => {
+    const order = await Order.findOne({
+      userId: req.user.id,
+      "items.product": req.params.productId
+    });
+
+    res.json({ hasBought: !!order });
+  }
+);
+
 /* ===========================
    GET ORDERS BY USER
 =========================== */
@@ -64,6 +78,22 @@ router.put("/:id/cancel", async (req, res) => {
     res.status(500).json({ message: "Cancel failed" });
   }
 });
+// GET ORDERS OF LOGGED-IN USER
+router.get(
+  "/my",
+  authMiddleware,
+  async (req, res) => {
+    try {
+      const orders = await Order.find({
+        userId: req.user.id
+      }).sort({ createdAt: -1 });
+
+      res.json(orders);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch orders" });
+    }
+  }
+);
 
 /* ===========================
    ADMIN: GET ALL ORDERS
