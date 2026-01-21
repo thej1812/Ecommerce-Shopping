@@ -1,1 +1,6 @@
 @import "tailwindcss";
+
+body{
+    margin-left: 32px;
+    margin-right: 32px;
+}
