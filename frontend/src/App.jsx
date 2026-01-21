@@ -1,4 +1,5 @@
 import "./App.css";
+
 import Navbar from "./components/Navbar";
 import AdminProducts from "./pages/AdminProducts";
 
@@ -16,42 +17,51 @@ import MyOrders from "./pages/MyOrders";
 import AdminCategories from "./pages/AdminCategories";
 import ProductDetail from "./pages/ProductDetail";
 import AdminProductImages from "./pages/AdminProductImages";
-import { Routes, Route } from "react-router-dom";
+import NewArrival from "./pages/NewArrival";
+
+import { Routes, Route, useLocation } from "react-router-dom";
 
 export default function App() {
+  const location = useLocation();
+
+  // hide navbar for admin routes
+  const hideNavbar = location.pathname.startsWith("/admin");
+
   return (
     <>
-     <Navbar />
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/products" element={<Products />} />
-      <Route path="/cart" element={<Cart />} />
-      <Route path="/checkout" element={<Checkout />} />
-      <Route path="/signup" element={<Signup />} />
-<Route path="/login" element={<Login />} />
+      {!hideNavbar && <Navbar />}
 
-<Route path="/my-orders" element={<MyOrders />} />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/products" element={<Products />} />
+        <Route path="/cart" element={<Cart />} />
+        <Route path="/checkout" element={<Checkout />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/my-orders" element={<MyOrders />} />
+        <Route path="/new-arrivals" element={<NewArrival />} />
 
+        <Route
+          path="/admin"
+          element={
+            <AdminRoute>
+              <AdminDashboard />
+            </AdminRoute>
+          }
+        />
 
-      <Route
-        path="/admin"
-        element={
-          <AdminRoute>
-            <AdminDashboard />
-          </AdminRoute>
-        }
-      />
-    <Route path="/admin/products" element={<AdminProducts />} />
-      <Route path="/admin/categories" element={<AdminCategories />} />
-      <Route path="/admin/add-product" element={<AddProduct />} />
-      <Route path="/admin/orders" element={<Orders />} />
-      <Route path="/product/:id" element={<ProductDetail />} />
+        <Route path="/admin/products" element={<AdminProducts />} />
+        <Route path="/admin/categories" element={<AdminCategories />} />
+        <Route path="/admin/add-product" element={<AddProduct />} />
+        <Route path="/admin/orders" element={<Orders />} />
 
-      <Route
-  path="/admin/products/:id/images"
-  element={<AdminProductImages />}
-/>
+        <Route path="/product/:id" element={<ProductDetail />} />
 
-    </Routes></>
+        <Route
+          path="/admin/products/:id/images"
+          element={<AdminProductImages />}
+        />
+      </Routes>
+    </>
   );
 }
