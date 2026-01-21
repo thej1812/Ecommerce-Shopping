@@ -37,53 +37,69 @@ export default function ProductDetail() {
   }, [product]);
 
   /* 🔴 RETURNS AFTER ALL HOOKS */
-  if (!product) return <p>Loading...</p>;
+  if (!product) return <p className="p-10">Loading...</p>;
 
   return (
-    <div className="p-6 grid md:grid-cols-2 gap-6">
-      {/* IMAGE GALLERY */}
-      <ProductImageSlider images={product.images} />
+    <div className="px-10 py-12 space-y-16">
 
-      {/* PRODUCT DETAILS */}
-      <div>
-        <h1 className="text-2xl font-bold">{product.name}</h1>
+      {/* PRODUCT CARD */}
+      <div className="grid md:grid-cols-2 gap-14 shadow-sm p-10">
 
-        <p className="mt-4 text-gray-700 leading-relaxed">
-          {product.description}
-        </p>
+        {/* IMAGE SECTION */}
+        <ProductImageSlider images={product.images} />
 
-        <p className="text-xl my-2">₹{product.price}</p>
+        {/* DETAILS SECTION */}
+        <div className="flex flex-col justify-between">
 
-        <p className="text-sm text-gray-600">
-          Stock: {product.quantity}
-        </p>
+          <div className="space-y-5">
+            <h1 className="text-2xl tracking-wide">
+              {product.name}
+            </h1>
 
-        <p className="mt-4">{product.description}</p>
+            <p className="text-gray-700 leading-relaxed">
+              {product.description}
+            </p>
 
-        {product.quantity > 0 ? (
-          <button
-            type="button"
-            onClick={() => addToCart(product)}
-            className="bg-black text-white px-6 py-2 mt-4"
-          >
-            Add to Cart
-          </button>
-        ) : (
-          <button
-            disabled
-            className="bg-gray-400 text-white px-6 py-2 mt-4"
-          >
-            Sold Out
-          </button>
-        )}
+            <p className="text-xl">
+              ₹{product.price}
+            </p>
+
+            <p className="text-sm text-gray-600">
+              Stock: {product.quantity}
+            </p>
+          </div>
+
+          {/* ACTION */}
+          <div className="mt-8">
+            {product.quantity > 0 ? (
+              <button
+                type="button"
+                onClick={() => addToCart(product)}
+                className="bg-black-400 text-white px-8 py-3 text-sm"
+              >
+                Add to Cart
+              </button>
+            ) : (
+              <button
+                disabled
+                className="bg-gray-400 text-white px-8 py-3 text-sm"
+              >
+                Sold Out
+              </button>
+            )}
+          </div>
+
+        </div>
       </div>
 
-      <RelatedProducts
-        category={product.category?._id || product.category}
-        productId={product._id}
-      />
+      {/* RELATED PRODUCTS SECTION */}
+      <div>
+        <RelatedProducts
+          category={product.category?._id || product.category}
+          productId={product._id}
+        />
+      </div>
 
-      
     </div>
   );
 }
