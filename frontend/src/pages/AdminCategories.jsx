@@ -1,13 +1,16 @@
 import { useEffect, useState } from "react";
 
 export default function AdminCategories() {
-  const [name, setName] = useState("");
   const [categories, setCategories] = useState([]);
+  const [name, setName] = useState("");
+  const [image, setImage] = useState(null);
 
   const fetchCategories = () => {
     fetch("http://localhost:5000/api/categories")
       .then(res => res.json())
-      .then(data => setCategories(data));
+      .then(data => {
+        if (Array.isArray(data)) setCategories(data);
+      });
   };
 
   useEffect(() => {
@@ -15,76 +18,97 @@ export default function AdminCategories() {
   }, []);
 
   const addCategory = async () => {
-    if (!name.trim()) return;
+    if (!name || !image) {
+      alert("Name and image required");
+      return;
+    }
 
-    await fetch("http://localhost:5000/api/categories", {
+    const formData = new FormData();
+    formData.append("name", name);
+    formData.append("image", image);
+
+    await fetch("http://localhost:5000/api/categories/add", {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
         Authorization: localStorage.getItem("token")
       },
-      body: JSON.stringify({ name })
+      body: formData
     });
 
     setName("");
+    setImage(null);
     fetchCategories();
   };
 
   const deleteCategory = async (id) => {
-    const confirmDelete = window.confirm(
-      "Delete this category?"
-    );
-    if (!confirmDelete) return;
-
-    await fetch(
-      `http://localhost:5000/api/categories/${id}`,
-      {
-        method: "DELETE",
-        headers: {
-          Authorization: localStorage.getItem("token")
-        }
+    await fetch(`http://localhost:5000/api/categories/${id}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: localStorage.getItem("token")
       }
-    );
+    });
 
     fetchCategories();
   };
 
   return (
-    <div className="p-6">
-      <h1 className="text-xl font-bold mb-4">
+    <div className="px-10 py-10 font-light">
+
+      {/* HEADER */}
+      <h1 className="text-2xl tracking-wide mb-10">
         Manage Categories
       </h1>
 
-      <input
-        placeholder="New Category"
-        value={name}
-        onChange={e => setName(e.target.value)}
-        className="border p-2 mr-2"
-      />
+      {/* ADD CATEGORY */}
+      <div className="flex items-center gap-4 mb-14">
 
-      <button
-        onClick={addCategory}
-        className="bg-black text-white px-4 py-2"
-      >
-        Add
-      </button>
+        <input
+          className="border-b border-black px-1 py-2 text-sm focus:outline-none"
+          placeholder="Category name"
+          value={name}
+          onChange={e => setName(e.target.value)}
+        />
 
-      <ul className="mt-4">
+        <input
+          type="file"
+          accept="image/*"
+          onChange={e => setImage(e.target.files[0])}
+          className="text-sm"
+        />
+
+        <button
+          onClick={addCategory}
+          className="bg-black text-white px-6 py-2 text-sm"
+        >
+          Add
+        </button>
+      </div>
+
+      {/* CATEGORY GRID */}
+      <div className="grid grid-cols-4 gap-12">
         {categories.map(cat => (
-          <li
-            key={cat._id}
-            className="flex justify-between items-center border p-2 mb-2"
-          >
-            <span>{cat.name}</span>
+          <div key={cat._id} className="flex flex-col gap-3">
+
+            <img
+              src={`http://localhost:5000/uploads/categories/${cat.image}`}
+              alt={cat.name}
+              className="h-40 w-full object-cover"
+            />
+
+            <p className="text-sm tracking-wide">
+              {cat.name}
+            </p>
+
             <button
               onClick={() => deleteCategory(cat._id)}
-              className="text-red-600"
+              className="text-xs text-red-600 w-fit"
             >
               Delete
             </button>
-          </li>
+          </div>
         ))}
-      </ul>
+      </div>
+
     </div>
   );
 }
