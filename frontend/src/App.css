@@ -4,3 +4,11 @@ body{
     margin-left: 32px;
     margin-right: 32px;
 }
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
