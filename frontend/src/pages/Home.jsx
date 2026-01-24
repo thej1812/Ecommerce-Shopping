@@ -4,6 +4,13 @@ import { Link } from "react-router-dom";
 export default function Home() {
   const [latestProducts, setLatestProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+const [categories, setCategories] = useState([]);
+
+useEffect(() => {
+  fetch("http://localhost:5000/api/categories")
+    .then(res => res.json())
+    .then(data => setCategories(data));
+}, []);
 
   useEffect(() => {
     fetch("http://localhost:5000/api/products/latest")
@@ -106,7 +113,74 @@ export default function Home() {
   </div>
 </section>
 
+<section className="w-full py-20">
+  {/* TITLE */}
+  <div className="text-center mb-14">
+    <h2 className="text-4xl font-[italiana] mb-2 ">Categories</h2>
+    <p className="text-gray-500 text-sm font-[Mulish]">
+      Explore your favorite brands in one place
+    </p>
+  </div>
 
+  {/* HORIZONTAL SCROLL */}
+  <div
+    className="
+      flex gap-10
+      overflow-x-auto
+      px-6
+      scrollbar-hide
+      snap-x snap-mandatory
+    "
+  >
+    {categories.map(cat => (
+      <div
+        key={cat._id}
+        onClick={() =>
+          window.location.href = `/products?category=${cat._id}`
+        }
+        className="
+          relative
+          min-w-[260px]
+          h-[260px]
+          cursor-pointer
+          overflow-hidden
+          group
+          snap-center
+        "
+      >
+        {cat.image && (
+          <img
+            src={`http://localhost:5000/uploads/categories/${cat.image}`}
+            alt={cat.name}
+            className="
+              w-full h-full
+              object-cover
+              transition-transform
+              duration-500
+              group-hover:scale-105
+            "
+          />
+        )}
+
+        {/* OVERLAY */}
+        <div
+          className="
+            absolute inset-0
+            bg-black/30
+            flex items-center justify-center
+            transition
+            duration-300
+            group-hover:bg-black/50
+          "
+        >
+          <p className="text-white text-lg font-light tracking-wide text-center">
+            {cat.name}
+          </p>
+        </div>
+      </div>
+    ))}
+  </div>
+</section>
 
 
       {/* NEW ARRIVALS */}
@@ -168,8 +242,10 @@ export default function Home() {
               </Link>
             ))}
         </div>
-        
+       
       </section>
+      
+
     </div>
   );
 }
