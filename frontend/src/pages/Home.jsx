@@ -30,14 +30,84 @@ export default function Home() {
   return (
     <div className="p-6">
       {/* HERO SECTION */}
-      <section className="mb-10">
-        <h1 className="text-3xl font-bold mb-2">
-          Welcome to Our Store
-        </h1>
-        <p className="text-gray-600">
-          Discover the latest products added by our team
-        </p>
-      </section>
+  {/* BRAND HERO UI */}
+<section className="w-full">
+  <div
+    className="relative h-[55vh] md:h-[90vh] lg:h-[800px]
+    overflow-hidden flex items-end justify-center
+    border-b border-black"
+  >
+
+    {/* BACKGROUND IMAGE */}
+    <img
+      src="/hero-bg.png"
+      alt="Background"
+      className="
+        absolute
+        w-[600px] h-[500px]
+        md:w-[450px] md:h-[450px]
+        lg:w-[600px] lg:h-[600px]
+        
+        md:right-[120px]
+        lg:right-[340px]
+        object-contain
+        opacity-80
+        z-0
+      "
+    />
+
+    {/* BRAND TITLE */}
+    <h1
+      className="
+        absolute
+        top-6
+        left-1/2 -translate-x-1/2
+        lg:left-auto lg:right-10 lg:translate-x-0
+        text-[42px]
+        md:text-7xl
+        lg:text-[180px]
+        font-light
+        font-[italiana]
+        tracking-widest
+        text-black
+        z-30
+        whitespace-nowrap
+      "
+    >
+      RADIVEDHA
+    </h1>
+
+    {/* LEFT SIDE IMAGES – DESKTOP ONLY */}
+    <div className="absolute left-10 top-1/3 hidden lg:flex flex-col gap-10 z-40">
+      <img src="/bracelet.png" alt="" className="w-44 object-contain" />
+      <img src="/bouquet.png" alt="" className="w-48 object-contain" />
+    </div>
+
+    {/* RIGHT SIDE IMAGES – DESKTOP ONLY */}
+    <div className="absolute right-10 top-1/3 hidden lg:flex flex-col gap-10 z-40">
+      <img src="/scrunchies.png" alt="" className="w-64 object-contain" />
+      <img src="/necklace.png" alt="" className="w-48 object-contain" />
+    </div>
+
+    {/* CENTER IMAGE */}
+    <img
+      src="/hero-center.png"
+      alt="Center Hero"
+      className="
+        relative
+        h-[44vh]
+        md:h-[75vh]
+        lg:h-[100vh]
+        object-contain
+        z-20
+      "
+    />
+
+  </div>
+</section>
+
+
+
 
       {/* NEW ARRIVALS */}
       <section>
