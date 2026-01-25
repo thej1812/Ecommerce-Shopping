@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-
+import { FiShoppingBag } from "react-icons/fi";
 export default function Home() {
   const [latestProducts, setLatestProducts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -113,7 +113,7 @@ useEffect(() => {
   </div>
 </section>
 
-<section className="w-full py-20">
+<section className="w-full pt-20">
   {/* TITLE */}
   <div className="text-center mb-14">
     <h2 className="text-4xl font-[italiana] mb-2 ">Categories</h2>
@@ -125,9 +125,9 @@ useEffect(() => {
   {/* HORIZONTAL SCROLL */}
   <div
     className="
-      flex gap-10
+      flex gap-8 md:gap-10
       overflow-x-auto
-      px-6
+      px-4
       scrollbar-hide
       snap-x snap-mandatory
     "
@@ -140,8 +140,10 @@ useEffect(() => {
         }
         className="
           relative
-          min-w-[260px]
-          h-[260px]
+          min-w-[60px]
+          h-[60px]
+          md:min-w-[260px]
+          md:h-[260px]
           cursor-pointer
           overflow-hidden
           group
@@ -173,7 +175,7 @@ useEffect(() => {
             group-hover:bg-black/50
           "
         >
-          <p className="text-white text-lg font-light tracking-wide text-center">
+          <p className="text-white text-sm md:text-lg  font-light tracking-wide text-center">
             {cat.name}
           </p>
         </div>
@@ -182,68 +184,220 @@ useEffect(() => {
   </div>
 </section>
 
+{/* NEW ARRIVALS */}
+<section className="pt-20">
+  {/* HEADER */}
+  <div className="text-center mb-12">
+    <h2 className="text-4xl  font-[italiana]">
+      New Arrivals
+    </h2>
+    <p className="text-gray-500 text-sm font-[Mulish]">
+      Find what you love, faster and easier.
+    </p>
+  </div>
 
-      {/* NEW ARRIVALS */}
-      <section>
-        <div className="flex justify-between items-center mb-4">
-          <h2 className="text-xl font-semibold">
-            New Arrivals
-          </h2>
+  {/* LOADING STATE */}
+  {loading && (
+    <p className="text-center text-gray-500 font-[italiana]">
+      Loading latest products...
+    </p>
+  )}
 
-          <Link
-            to="/products"
-            className="text-sm text-blue-600"
-          >
-            View All
-          </Link>
-        </div>
+  {/* EMPTY STATE */}
+  {!loading && latestProducts.length === 0 && (
+    <p className="text-center font-[italiana] text-gray-500">
+      No products available
+    </p>
+  )}
 
-        {/* LOADING STATE */}
-        {loading && (
-          <p className="text-gray-500">
-            Loading latest products...
-          </p>
-        )}
+  {/* PRODUCT GRID */}
+  <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-5 gap-10">
+    {latestProducts.length > 0 &&
+      latestProducts.map(product => (
+        <Link
+          key={product._id}
+          to={`/product/${product._id}`}
+          className="group"
+        >
+          {/* IMAGE */}
+          <div className="relative overflow-hidden">
+            {product.images && product.images.length > 0 && (
+              <img
+                src={`http://localhost:5000/uploads/${product.images[0]}`}
+                alt={product.name}
+                className="h-44 w-44 md:h-64 md:w-full object-cover transition-transform duration-300 group-hover:scale-105"
+              />
+            )}
 
-        {/* EMPTY STATE */}
-        {!loading && latestProducts.length === 0 && (
-          <p className="text-gray-500">
-            No products available
-          </p>
-        )}
+           
+          </div>
 
-        {/* PRODUCT GRID */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-4">
-          {latestProducts.length > 0 &&
-            latestProducts.map(product => (
-              <Link
-                key={product._id}
-                to={`/product/${product._id}`}
-                className="border p-3 rounded hover:shadow transition"
-              >
-                {/* IMAGE */}
-                {product.images &&
-                  product.images.length > 0 && (
-                    <img
-                      src={`http://localhost:5000/uploads/${product.images[0]}`}
-                      alt={product.name}
-                      className="h-40 w-full object-cover rounded"
-                    />
-                  )}
+          {/* PRODUCT INFO */}
+          <div className="mt-4">
+            <h3 className="text-sm  text-gray-800 font-[Mulish]">
+              {product.name}
+            </h3>
 
-                {/* INFO */}
-                <h3 className="font-semibold mt-2">
-                  {product.name}
-                </h3>
+            <p className="text-sm text-gray-500 mt-1 font-[Mulish]">
+              ₹{product.price}
+            </p>
+          </div>
+        </Link>
+      ))}
+  </div>
+</section>
+{/* ABOUT PRODUCTS */}
+<section className="py-20">
+  {/* HEADER */}
+  <div className="text-center mb-14">
+    <h2 className="text-4xl font-serif font-medium">
+      About Products
+    </h2>
+    <p className="text-sm text-gray-500 mt-2">
+      Every product, chosen with care.
+    </p>
+  </div>
 
-                <p className="text-gray-700">
-                  ₹{product.price}
-                </p>
-              </Link>
-            ))}
-        </div>
-       
-      </section>
+  <div className="max-w-6xl mx-auto border border-gray-300">
+    {/* ITEM 1 */}
+    <div className="grid grid-cols-1 md:grid-cols-2 border-b border-gray-300">
+      {/* IMAGE */}
+      <div className="flex items-center justify-center p-10">
+        <img
+          src="/images/scrunchies.png"
+          alt="Scrunchies"
+          className="max-h-48 object-contain"
+        />
+      </div>
+
+      {/* CONTENT */}
+      <div className="p-10 flex flex-col justify-center">
+        <h3 className="text-2xl font-serif mb-4">
+          Our Scrunchies
+        </h3>
+        <p className="text-sm text-gray-600 leading-relaxed mb-6">
+          Crafted with care and attention to detail, our scrunchies
+          combine comfort and elegance. Made from premium fabrics,
+          they protect your hair while adding a stylish finishing
+          touch to any look.
+        </p>
+
+        <button className="flex items-center gap-2 border border-gray-800 px-5 py-2 text-sm w-fit hover:bg-gray-800 hover:text-white transition">
+          SHOP NOW
+          <img
+            src="/icons/arrow-right.svg"
+            alt="arrow"
+            className="w-4 h-4"
+          />
+        </button>
+      </div>
+    </div>
+
+    {/* ITEM 2 */}
+    <div className="grid grid-cols-1 md:grid-cols-2 border-b border-gray-300">
+      {/* CONTENT */}
+      <div className="p-10 flex flex-col justify-center">
+        <h3 className="text-2xl font-serif mb-4">
+          Our Bracelets
+        </h3>
+        <p className="text-sm text-gray-600 leading-relaxed mb-6">
+          Our bracelets are crafted with high-quality imitation pearls,
+          refined metal alloys, and sparkling simulated diamonds —
+          designed to look elegant, feel comfortable, and shine
+          beautifully for everyday wear and special occasions.
+        </p>
+
+        <button className="flex items-center gap-2 border border-gray-800 px-5 py-2 text-sm w-fit hover:bg-gray-800 hover:text-white transition">
+          SHOP NOW
+          <img
+            src="/icons/arrow-right.svg"
+            alt="arrow"
+            className="w-4 h-4"
+          />
+        </button>
+      </div>
+
+      {/* IMAGE */}
+      <div className="flex items-center justify-center p-10">
+        <img
+          src="/images/bracelets.png"
+          alt="Bracelets"
+          className="max-h-48 object-contain"
+        />
+      </div>
+    </div>
+
+    {/* ITEM 3 */}
+    <div className="grid grid-cols-1 md:grid-cols-2 border-b border-gray-300">
+      {/* IMAGE */}
+      <div className="flex items-center justify-center p-10">
+        <img
+          src="/images/bouquet.png"
+          alt="Bouquet"
+          className="max-h-48 object-contain"
+        />
+      </div>
+
+      {/* CONTENT */}
+      <div className="p-10 flex flex-col justify-center">
+        <h3 className="text-2xl font-serif mb-4">
+          Our Bouquet
+        </h3>
+        <p className="text-sm text-gray-600 leading-relaxed mb-6">
+          Our bouquet is thoughtfully handcrafted with meaningful
+          notes, a blend of real and artificial flowers, and finished
+          with premium wrapping — designed to create a lasting and
+          memorable expression for your loved one.
+        </p>
+
+        <button className="flex items-center gap-2 border border-gray-800 px-5 py-2 text-sm w-fit hover:bg-gray-800 hover:text-white transition">
+          SHOP NOW
+          <img
+            src="/icons/arrow-right.svg"
+            alt="arrow"
+            className="w-4 h-4"
+          />
+        </button>
+      </div>
+    </div>
+
+    {/* ITEM 4 */}
+    <div className="grid grid-cols-1 md:grid-cols-2">
+      {/* CONTENT */}
+      <div className="p-10 flex flex-col justify-center">
+        <h3 className="text-2xl font-serif mb-4">
+          Our Earrings & Jewelry
+        </h3>
+        <p className="text-sm text-gray-600 leading-relaxed mb-6">
+          Our earrings and jewelry are thoughtfully designed to blend
+          elegance with everyday comfort. Crafted using refined
+          finishes, each piece adds a timeless touch to both daily
+          wear and special occasions.
+        </p>
+
+        <button className="flex items-center gap-2 border border-gray-800 px-5 py-2 text-sm w-fit hover:bg-gray-800 hover:text-white transition">
+          SHOP NOW
+          <img
+            src="/icons/arrow-right.svg"
+            alt="arrow"
+            className="w-4 h-4"
+          />
+        </button>
+      </div>
+
+      {/* IMAGE */}
+      <div className="flex items-center justify-center p-10">
+        <img
+          src="/images/earrings.png"
+          alt="Earrings"
+          className="max-h-48 object-contain"
+        />
+      </div>
+    </div>
+  </div>
+</section>
+
+
       
 
     </div>
