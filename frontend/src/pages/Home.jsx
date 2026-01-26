@@ -250,9 +250,7 @@ useEffect(() => {
 <section className="py-20">
   {/* HEADER */}
   <div className="text-center mb-14">
-    <h2 className="text-4xl font-serif font-medium">
-      About Products
-    </h2>
+    <h2 className="text-4xl font-[italiana]">About Products</h2>
     <p className="text-sm text-gray-500 mt-2">
       Every product, chosen with care.
     </p>
@@ -264,31 +262,31 @@ useEffect(() => {
       {/* IMAGE */}
       <div className="flex items-center justify-center p-10">
         <img
-          src="/images/scrunchies.png"
+          src="./scrunch.png"
           alt="Scrunchies"
-          className="max-h-48 object-contain"
+          className="max-h-88 object-contain"
         />
       </div>
 
       {/* CONTENT */}
-      <div className="p-10 flex flex-col justify-center">
-        <h3 className="text-2xl font-serif mb-4">
+      <div className="p-10 flex flex-col justify-center
+                      md:border-l border-gray-300
+                      text-center md:text-left
+                      items-center md:items-start">
+        <h3 className="text-2xl font-[italiana] mb-4">
           Our Scrunchies
         </h3>
-        <p className="text-sm text-gray-600 leading-relaxed mb-6">
+        <p className="text-sm text-gray-600 leading-relaxed mb-6 font-[Mulish]">
           Crafted with care and attention to detail, our scrunchies
           combine comfort and elegance. Made from premium fabrics,
           they protect your hair while adding a stylish finishing
           touch to any look.
         </p>
-
-        <button className="flex items-center gap-2 border border-gray-800 px-5 py-2 text-sm w-fit hover:bg-gray-800 hover:text-white transition">
+        <button className="flex items-center gap-2 font-[Mulish]
+                           border border-gray-800 px-5 py-2 text-sm
+                           hover:bg-gray-800 hover:text-white transition">
           SHOP NOW
-          <img
-            src="/icons/arrow-right.svg"
-            alt="arrow"
-            className="w-4 h-4"
-          />
+          <img src="./scrunchiesicon.png" alt="icon" className="w-10 h-10" />
         </button>
       </div>
     </div>
@@ -296,33 +294,33 @@ useEffect(() => {
     {/* ITEM 2 */}
     <div className="grid grid-cols-1 md:grid-cols-2 border-b border-gray-300">
       {/* CONTENT */}
-      <div className="p-10 flex flex-col justify-center">
-        <h3 className="text-2xl font-serif mb-4">
+      <div className="p-10 flex flex-col justify-center
+                      md:border-r border-gray-300
+                      text-center md:text-left
+                      items-center md:items-start">
+        <h3 className="text-2xl font-[italiana] mb-4">
           Our Bracelets
         </h3>
-        <p className="text-sm text-gray-600 leading-relaxed mb-6">
+        <p className="text-sm text-gray-600 leading-relaxed mb-6 font-[Mulish]">
           Our bracelets are crafted with high-quality imitation pearls,
           refined metal alloys, and sparkling simulated diamonds —
           designed to look elegant, feel comfortable, and shine
           beautifully for everyday wear and special occasions.
         </p>
-
-        <button className="flex items-center gap-2 border border-gray-800 px-5 py-2 text-sm w-fit hover:bg-gray-800 hover:text-white transition">
+        <button className="flex items-center gap-2 font-[Mulish]
+                           border border-gray-800 px-5 py-2 text-sm
+                           hover:bg-gray-800 hover:text-white transition">
           SHOP NOW
-          <img
-            src="/icons/arrow-right.svg"
-            alt="arrow"
-            className="w-4 h-4"
-          />
+          <img src="./bracleteicon.png" alt="icon" className="w-10 h-10" />
         </button>
       </div>
 
       {/* IMAGE */}
       <div className="flex items-center justify-center p-10">
         <img
-          src="/images/bracelets.png"
+          src="./braceletimg.png"
           alt="Bracelets"
-          className="max-h-48 object-contain"
+          className="max-h-88 object-contain"
         />
       </div>
     </div>
@@ -332,31 +330,31 @@ useEffect(() => {
       {/* IMAGE */}
       <div className="flex items-center justify-center p-10">
         <img
-          src="/images/bouquet.png"
+          src="./bouquetimg.png"
           alt="Bouquet"
-          className="max-h-48 object-contain"
+          className="max-h-88 object-contain"
         />
       </div>
 
       {/* CONTENT */}
-      <div className="p-10 flex flex-col justify-center">
-        <h3 className="text-2xl font-serif mb-4">
+      <div className="p-10 flex flex-col justify-center
+                      md:border-l border-gray-300
+                      text-center md:text-left
+                      items-center md:items-start">
+        <h3 className="text-2xl font-[italiana] mb-4">
           Our Bouquet
         </h3>
-        <p className="text-sm text-gray-600 leading-relaxed mb-6">
+        <p className="text-sm text-gray-600 leading-relaxed mb-6 font-[Mulish]">
           Our bouquet is thoughtfully handcrafted with meaningful
           notes, a blend of real and artificial flowers, and finished
           with premium wrapping — designed to create a lasting and
           memorable expression for your loved one.
         </p>
-
-        <button className="flex items-center gap-2 border border-gray-800 px-5 py-2 text-sm w-fit hover:bg-gray-800 hover:text-white transition">
+        <button className="flex items-center gap-2 font-[Mulish]
+                           border border-gray-800 px-5 py-2 text-sm
+                           hover:bg-gray-800 hover:text-white transition">
           SHOP NOW
-          <img
-            src="/icons/arrow-right.svg"
-            alt="arrow"
-            className="w-4 h-4"
-          />
+          <img src="./boqueticon.png" alt="icon" className="w-10 h-10" />
         </button>
       </div>
     </div>
@@ -364,38 +362,39 @@ useEffect(() => {
     {/* ITEM 4 */}
     <div className="grid grid-cols-1 md:grid-cols-2">
       {/* CONTENT */}
-      <div className="p-10 flex flex-col justify-center">
-        <h3 className="text-2xl font-serif mb-4">
+      <div className="p-10 flex flex-col justify-center
+                      md:border-r border-gray-300
+                      text-center md:text-left
+                      items-center md:items-start">
+        <h3 className="text-2xl font-[italiana] mb-4">
           Our Earrings & Jewelry
         </h3>
-        <p className="text-sm text-gray-600 leading-relaxed mb-6">
+        <p className="text-sm text-gray-600 leading-relaxed mb-6 font-[Mulish]">
           Our earrings and jewelry are thoughtfully designed to blend
           elegance with everyday comfort. Crafted using refined
           finishes, each piece adds a timeless touch to both daily
           wear and special occasions.
         </p>
-
-        <button className="flex items-center gap-2 border border-gray-800 px-5 py-2 text-sm w-fit hover:bg-gray-800 hover:text-white transition">
+        <button className="flex items-center gap-2 font-[Mulish]
+                           border border-gray-800 px-5 py-2 text-sm
+                           hover:bg-gray-800 hover:text-white transition">
           SHOP NOW
-          <img
-            src="/icons/arrow-right.svg"
-            alt="arrow"
-            className="w-4 h-4"
-          />
+          <img src="./jellweyicon.png" alt="icon" className="w-10 h-10" />
         </button>
       </div>
 
       {/* IMAGE */}
       <div className="flex items-center justify-center p-10">
         <img
-          src="/images/earrings.png"
+          src="./jellweryimg.png"
           alt="Earrings"
-          className="max-h-48 object-contain"
+          className="max-h-88 object-contain"
         />
       </div>
     </div>
   </div>
 </section>
+
 
 
       
