@@ -4,6 +4,9 @@ export default function MyOrders() {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  // UI ONLY – cancel modal state
+  const [cancelId, setCancelId] = useState(null);
+
   useEffect(() => {
     const fetchOrders = () => {
       fetch("http://localhost:5000/api/orders/my", {
@@ -23,88 +26,153 @@ export default function MyOrders() {
         .finally(() => setLoading(false));
     };
 
-    fetchOrders(); // initial load
-
-    const interval = setInterval(fetchOrders, 3000); // live update every 3 sec
-
+    fetchOrders();
+    const interval = setInterval(fetchOrders, 3000);
     return () => clearInterval(interval);
   }, []);
 
+  const confirmCancel = async () => {
+    await fetch(
+      `http://localhost:5000/api/orders/${cancelId}/cancel`,
+      {
+        method: "PUT",
+        headers: {
+          Authorization: localStorage.getItem("token")
+        }
+      }
+    );
+
+    setOrders(prev =>
+      prev.map(o =>
+        o._id === cancelId
+          ? { ...o, status: "Cancelled" }
+          : o
+      )
+    );
+
+    setCancelId(null);
+  };
+
   if (loading) {
-    return <p className="p-6">Loading orders...</p>;
+    return (
+      <p className="p-6 text-gray-500 font-[Mulish]">
+        Loading orders...
+      </p>
+    );
   }
 
   return (
-    <div className="p-6">
-      <h1 className="text-xl font-bold mb-4">My Orders</h1>
+    <section className="pt-8 px-6 pb-8 font-[Mulish]">
+      {/* HEADER */}
+      <div className="text-center mb-8">
+        <h1 className="text-3xl md:text-4xl font-[italiana]">
+          My Orders
+        </h1>
+        <p className="text-sm text-gray-500 mt-1">
+          Track and manage your recent purchases
+        </p>
+      </div>
 
-      {orders.length === 0 && <p>No orders yet</p>}
+      {/* EMPTY */}
+      {orders.length === 0 && (
+        <p className="text-center text-gray-500">
+          No orders yet
+        </p>
+      )}
 
-      {orders.map(order => (
-        <div
-          key={order._id}
-          className="border p-4 mb-4 rounded"
-        >
-          <p>
-            <b>Total:</b> ₹{order.totalAmount}
-          </p>
-
-          <p>
-            <b>Status:</b>{" "}
-            <span
-              className={
-                order.status === "Cancelled"
-                  ? "text-red-500"
-                  : order.status === "Delivered"
-                  ? "text-green-600"
-                  : "text-yellow-600"
-              }
-            >
-              {order.status}
-            </span>
-          </p>
-
-          <p>
-            <b>Address:</b> {order.address}
-          </p>
-
-          <div className="mt-2">
-            {order.products.map((p, i) => (
-              <p key={i}>
-                {p.name} × {p.qty}
+      {/* ORDERS */}
+      <div className="max-w-4xl mx-auto space-y-6">
+        {orders.map(order => (
+          <div
+            key={order._id}
+            className="border p-6 bg-white hover:shadow-md transition"
+          >
+            {/* META */}
+            <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-4 gap-2">
+              <p className="text-sm text-gray-700">
+                <span className="font-medium">Total:</span> ₹{order.totalAmount}
               </p>
-            ))}
-          </div>
 
-          {/* USER CANCEL ORDER */}
-          {order.status === "Placed" && (
-            <button
-              className="mt-2 text-red-500"
-              onClick={async () => {
-                await fetch(
-                  `http://localhost:5000/api/orders/${order._id}/cancel`,
-                  {
-                    method: "PUT",
-                    headers: {
-                      Authorization: localStorage.getItem("token")
-                    }
+              <p className="text-sm">
+                <span className="font-medium">Status:</span>{" "}
+                <span
+                  className={
+                    order.status === "Cancelled"
+                      ? "text-red-500"
+                      : order.status === "Delivered"
+                      ? "text-green-600"
+                      : "text-yellow-600"
                   }
-                );
+                >
+                  {order.status}
+                </span>
+              </p>
+            </div>
 
-                setOrders(prev =>
-                  prev.map(o =>
-                    o._id === order._id
-                      ? { ...o, status: "Cancelled" }
-                      : o
-                  )
-                );
-              }}
-            >
+            {/* ADDRESS */}
+            <p className="text-sm text-gray-600 mb-4">
+              <span className="font-medium text-gray-800">
+                Address:
+              </span>{" "}
+              {order.address}
+            </p>
+
+            {/* PRODUCTS */}
+            <div className="border-t pt-4 space-y-1">
+              {order.products.map((p, i) => (
+                <p
+                  key={i}
+                  className="text-sm text-gray-700"
+                >
+                  {p.name} × {p.qty}
+                </p>
+              ))}
+            </div>
+
+            {/* CANCEL */}
+            {order.status === "Placed" && (
+              <button
+                className="mt-4 text-sm text-red-500 hover:underline"
+                onClick={() => setCancelId(order._id)}
+              >
+                Cancel Order
+              </button>
+            )}
+          </div>
+        ))}
+      </div>
+
+      {/* 🔴 CANCEL CONFIRMATION MODAL */}
+      {cancelId && (
+        <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
+          <div className="bg-white rounded-lg p-6 w-[90%] max-w-md">
+            <h2 className="text-lg font-medium mb-2">
               Cancel Order
-            </button>
-          )}
+            </h2>
+
+            <p className="text-sm text-gray-600 mb-6">
+              Are you sure you want to cancel this order?
+              This action cannot be undone.
+            </p>
+
+            <div className="flex justify-end gap-3">
+              <button
+                onClick={() => setCancelId(null)}
+                className="px-4 py-2 border text-sm"
+              >
+                Keep Order
+              </button>
+
+              <button
+                onClick={confirmCancel}
+                className="px-4 py-2 bg-red-600 text-white text-sm"
+              >
+                Yes, Cancel
+              </button>
+            </div>
+          </div>
         </div>
-      ))}
-    </div>
+      )}
+    </section>
   );
 }
