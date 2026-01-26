@@ -114,7 +114,7 @@ router.get("/latest", async (req, res) => {
   try {
     const products = await Product.find()
       .sort({ createdAt: -1 })
-      .limit(5);
+      .limit(10);
 
     res.json(products);
   } catch (error) {
