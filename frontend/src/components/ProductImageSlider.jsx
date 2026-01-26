@@ -25,7 +25,7 @@ export default function ProductImageSlider({ images }) {
           <SwiperSlide key={index}>
             <img
               src={`http://localhost:5000/uploads/${img}`}
-              className="w-full h-96 object-cover rounded"
+              className="w-full h-96 object-contain rounded"
               alt="product"
             />
           </SwiperSlide>
