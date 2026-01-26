@@ -10,6 +10,7 @@ export default function ProductDetail() {
   /* 🔴 ALL HOOKS MUST BE AT THE TOP */
   const [product, setProduct] = useState(null);
   const [hasBought, setHasBought] = useState(false);
+  const [addedMsg, setAddedMsg] = useState(false);
   const { addToCart } = useContext(CartContext);
 
   /* FETCH PRODUCT */
@@ -36,68 +37,104 @@ export default function ProductDetail() {
       .then(data => setHasBought(data.hasBought));
   }, [product]);
 
-  /* 🔴 RETURNS AFTER ALL HOOKS */
   if (!product) return <p className="p-10">Loading...</p>;
 
+  const handleAddToCart = () => {
+    addToCart(product);
+    setAddedMsg(true);
+    setTimeout(() => setAddedMsg(false), 2000);
+  };
+
   return (
-    <div className="px-10 py-12 space-y-16">
+    <div className="px-4 md:px-10 pt-6 md:pt-8 space-y-12 md:space-y-24 bg-white">
 
-      {/* PRODUCT CARD */}
-      <div className="grid md:grid-cols-2 gap-14 shadow-sm p-10">
+      {/* PRODUCT DETAIL CARD */}
+      <div className="max-w-6xl mx-auto border p-6 md:p-12">
 
-        {/* IMAGE SECTION */}
-        <ProductImageSlider images={product.images} />
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-start">
 
-        {/* DETAILS SECTION */}
-        <div className="flex flex-col justify-between">
-
-          <div className="space-y-5">
-            <h1 className="text-2xl tracking-wide">
-              {product.name}
-            </h1>
-
-            <p className="text-gray-700 leading-relaxed">
-              {product.description}
-            </p>
-
-            <p className="text-xl">
-              ₹{product.price}
-            </p>
-
-            <p className="text-sm text-gray-600">
-              Stock: {product.quantity}
-            </p>
+          {/* IMAGE SECTION */}
+          <div>
+            <ProductImageSlider images={product.images} />
           </div>
 
-          {/* ACTION */}
-          <div className="mt-8">
-            {product.quantity > 0 ? (
-              <button
-                type="button"
-                onClick={() => addToCart(product)}
-                className="bg-black-400 text-white px-8 py-3 text-sm"
-              >
-                Add to Cart
-              </button>
-            ) : (
-              <button
-                disabled
-                className="bg-gray-400 text-white px-8 py-3 text-sm"
-              >
-                Sold Out
-              </button>
-            )}
-          </div>
+          {/* CONTENT SECTION */}
+          <div className="flex flex-col justify-center h-full">
 
+            <div className="space-y-4 md:space-y-6">
+
+              <h1 className="text-3xl md:text-5xl font-[Italiana] tracking-wide">
+                {product.name}
+              </h1>
+
+              <p className="text-xl md:text-2xl">
+                ₹{product.price}
+              </p>
+
+              <p className="text-sm text-gray-600 leading-relaxed max-w-md">
+                {product.description}
+              </p>
+
+              {/* ACTION */}
+              <div className="space-y-3">
+                {product.quantity > 0 ? (
+                  <button
+                    type="button"
+                    onClick={handleAddToCart}
+                    className="bg-black text-white w-full md:w-auto px-10 py-3 text-xs tracking-widest"
+                  >
+                    ADD TO CART
+                  </button>
+                ) : (
+                  <button
+                    disabled
+                    className="bg-gray-400 text-white w-full md:w-auto px-10 py-3 text-xs tracking-widest"
+                  >
+                    SOLD OUT
+                  </button>
+                )}
+
+                {addedMsg && (
+                  <p className="text-xs text-green-600 tracking-wide">
+                    {product.name} added to cart
+                  </p>
+                )}
+              </div>
+
+            </div>
+          </div>
         </div>
       </div>
 
-      {/* RELATED PRODUCTS SECTION */}
-      <div>
+      {/* RELATED PRODUCTS */}
+      <div className="max-w-6xl mx-auto space-y-2 px-1 md:px-0">
+        <h2 className="text-3xl md:text-4xl font-[Italiana]">
+          Related Products
+        </h2>
+        <p className="text-sm text-gray-500">
+          Find what you love, faster and easier.
+        </p>
+
         <RelatedProducts
           category={product.category?._id || product.category}
           productId={product._id}
         />
+      </div>
+
+      {/* FOOTER */}
+      <div className="max-w-6xl mx-auto mt-12  mb-12 md:mt-16  border-t flex flex-col md:flex-row items-center justify-between gap-6">
+
+        <img src="/logo.png" alt="Brand Logo" className="h-10 md:h-14" />
+
+        <p className="text-xs text-gray-500 font-[Mulish] text-center">
+          © Copyrights-2025
+        </p>
+
+        <div className="flex gap-5">
+          <img src="/youtube.png" alt="YouTube" className="h-5 w-6" />
+          <img src="/whatsapp.png" alt="Whatsapp" className="h-5 w-5" />
+          <img src="/instagram.png" alt="Instagram" className="h-5 w-5" />
+        </div>
       </div>
 
     </div>
