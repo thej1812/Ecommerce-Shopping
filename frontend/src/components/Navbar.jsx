@@ -110,7 +110,7 @@ export default function Navbar() {
 
         {/* LOGO */}
         <Link to="/">
-          <img src="./logo.png" alt="logo" className="h-14" />
+          <img src="/logo.png" alt="logo" className="h-14" />
         </Link>
 
         {/* DESKTOP MENU */}
