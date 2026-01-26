@@ -1,29 +1,31 @@
 import { useEffect, useState } from "react";
-import RelatedProducts from "../components/RelatedProducts";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Orders() {
+  const navigate = useNavigate();
+  
+    const handleLogout = () => {
+      localStorage.clear();
+      navigate("/login");
+    };
   const [orders, setOrders] = useState([]);
 
   useEffect(() => {
-  const fetchOrders = () => {
-    fetch("http://localhost:5000/api/orders", {
-      headers: {
-        Authorization: localStorage.getItem("token")
-      }
-    })
-      .then(res => res.json())
-      .then(data => setOrders(data));
-  };
+    const fetchOrders = () => {
+      fetch("http://localhost:5000/api/orders", {
+        headers: {
+          Authorization: localStorage.getItem("token")
+        }
+      })
+        .then(res => res.json())
+        .then(data => setOrders(data));
+    };
 
-  fetchOrders(); // initial load
+    fetchOrders();
+    const interval = setInterval(fetchOrders, 3000);
+    return () => clearInterval(interval);
+  }, []);
 
-  const interval = setInterval(fetchOrders, 3000); // every 3 sec
-
-  return () => clearInterval(interval); // cleanup
-}, []);
-
-
-  // UPDATE ORDER STATUS
   const updateStatus = async (orderId, newStatus) => {
     await fetch(
       `http://localhost:5000/api/orders/${orderId}/status`,
@@ -31,13 +33,12 @@ export default function Orders() {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
-          Authorization: localStorage.getItem("token") // 🔑 SEND TOKEN
+          Authorization: localStorage.getItem("token")
         },
         body: JSON.stringify({ status: newStatus })
       }
     );
 
-    // Update UI immediately
     setOrders(prev =>
       prev.map(order =>
         order._id === orderId
@@ -48,75 +49,131 @@ export default function Orders() {
   };
 
   return (
-    <div className="p-6">
-      <h1 className="text-xl font-bold mb-4">Admin Orders</h1>
+    <section>
+      {/* TOP ADMIN NAV */}
+      <div className=" sticky top-0 bg-white w-full border-b border-black px-10 py-4 flex items-center justify-between font-light ">
+        {/* LOGO */}
+         <Link to="/admin">
+          <img src="/logo.png" alt="logo" className="h-14" />
+        </Link>
 
-      {orders.length === 0 && <p>No orders found</p>}
+        {/* LOGOUT */}
+        <button
+          onClick={handleLogout}
+          className="text-sm text-red-600 hover:underline"
+        >
+          Logout
+        </button>
+      </div>
 
-      {orders.map(order => (
-        <div key={order._id} className="border p-4 mb-4">
-          {/* USER DETAILS */}
-          <p><b>Name:</b> {order.userName || "N/A"}</p>
-          <p><b>Phone:</b> {order.phone || "N/A"}</p>
-          <p><b>Address:</b> {order.address || "N/A"}</p>
+    <section className="py-8 px-6 font-[Mulish]">
+      {/* HEADER */}
+      <div className="text-center mb-12">
+        <h1 className="text-3xl md:text-4xl font-[italiana]">
+          Admin Orders
+        </h1>
+        <p className="text-sm text-gray-500 mt-1">
+          Manage customer orders and delivery status
+        </p>
+      </div>
 
-          {/* TOTAL */}
-          <p className="mt-2">
-            <b>Total:</b> ₹{order.totalAmount}
-          </p>
+      {orders.length === 0 && (
+        <p className="text-center text-gray-500">
+          No orders found
+        </p>
+      )}
 
-          {/* PRODUCTS */}
-          <div className="mt-2">
-            <b>Products:</b>
-            {order.products?.map((item, index) => (
-              <p key={index}>
-                {item?.name || "Product"} × {item?.qty || 1}
+      {/* ORDERS */}
+      <div className="max-w-5xl mx-auto space-y-8">
+        {orders.map(order => (
+          <div
+            key={order._id}
+            className="border  p-6 bg-white hover:shadow-md transition"
+          >
+            {/* USER INFO */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm mb-4">
+              <p><span className="font-medium">Name:</span> {order.userName || "N/A"}</p>
+              <p><span className="font-medium">Phone:</span> {order.phone || "N/A"}</p>
+              <p><span className="font-medium">Address:</span> {order.address || "N/A"}</p>
+            </div>
+
+            {/* TOTAL + STATUS */}
+            <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-4 gap-2">
+              <p className="text-sm">
+                <span className="font-medium">Total:</span> ₹{order.totalAmount}
               </p>
-            ))}
+
+              <p className="text-sm">
+                <span className="font-medium">Status:</span>{" "}
+                <span
+                  className={
+                    order.status === "Cancelled"
+                      ? "text-red-600 font-medium"
+                      : order.status === "Delivered"
+                      ? "text-green-600 font-medium"
+                      : order.status === "Shipped"
+                      ? "text-blue-600 font-medium"
+                      : "text-yellow-600 font-medium"
+                  }
+                >
+                  {order.status}
+                </span>
+              </p>
+            </div>
+
+            {/* PRODUCTS */}
+            <div className="border-t pt-4 space-y-3">
+              <p className="text-sm font-medium mb-2">
+                Products
+              </p>
+
+              {order.products?.map((item, index) => (
+                <div
+                  key={index}
+                  className="flex items-center gap-4 text-sm"
+                >
+                  {/* PRODUCT IMAGE */}
+                  {item?.images?.length > 0 && (
+                    <img
+                      src={`http://localhost:5000/uploads/${item.images[0]}`}
+                      alt={item.name}
+                      className="w-14 h-14 object-cover rounded"
+                    />
+                  )}
+
+                  {/* PRODUCT INFO */}
+                  <p>
+                    {item?.name || "Product"} × {item?.qty || 1}
+                  </p>
+                </div>
+              ))}
+            </div>
+
+            {/* ADMIN ACTION */}
+            {order.status !== "Cancelled" && (
+              <select
+                className="mt-4 border px-3 py-2 text-sm"
+                value={order.status}
+                onChange={e =>
+                  updateStatus(order._id, e.target.value)
+                }
+              >
+                <option value="Placed">Placed</option>
+                <option value="Shipped">Shipped</option>
+                <option value="Delivered">Delivered</option>
+              </select>
+            )}
+
+            {/* CANCEL LABEL */}
+            {order.status === "Cancelled" && (
+              <p className="mt-4 text-red-600 font-medium">
+                Order Cancelled by User
+              </p>
+            )}
           </div>
-
-          {/* STATUS LABEL */}
-          <p className="mt-2">
-            <b>Status:</b>{" "}
-            <span
-              className={
-                order.status === "Cancelled"
-                  ? "text-red-600 font-bold"
-                  : order.status === "Delivered"
-                  ? "text-green-600"
-                  : order.status === "Shipped"
-                  ? "text-blue-600"
-                  : "text-yellow-600"
-              }
-            >
-              {order.status}
-            </span>
-          </p>
-
-          {/* ADMIN STATUS CHANGE */}
-          {order.status !== "Cancelled" && (
-            <select
-              className="border mt-2"
-              value={order.status}
-              onChange={e =>
-                updateStatus(order._id, e.target.value)
-              }
-            >
-              <option value="Placed">Placed</option>
-              <option value="Shipped">Shipped</option>
-              <option value="Delivered">Delivered</option>
-            </select>
-          )}
-
-          {/* CANCEL LABEL FOR ADMIN */}
-          {order.status === "Cancelled" && (
-            <p className="mt-2 text-red-600 font-bold">
-              ❌ Order Cancelled by User
-            </p>
-          )}
-        </div>
-      ))}
-      
-    </div>
+        ))}
+      </div>
+    </section>
+    </section>
   );
 }
