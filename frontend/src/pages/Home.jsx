@@ -256,7 +256,7 @@ useEffect(() => {
     </p>
   </div>
 
-  <div className="max-w-6xl mx-auto border border-gray-300">
+  <div className="max-w-7xl mx-auto border border-gray-300">
     {/* ITEM 1 */}
     <div className="grid grid-cols-1 md:grid-cols-2 border-b border-gray-300">
       {/* IMAGE */}
@@ -446,9 +446,9 @@ useEffect(() => {
   </div>
 
   {/* FOOTER */}
-  <div className="max-w-6xl mx-auto mt-16 md:mt-24 pt-6 border-t border-gray-300 flex flex-col md:flex-row items-center justify-between gap-6">
+  <div className="max-w-6xl mx-auto mt-16 md:mt-24 pt-6 border-t  flex flex-col md:flex-row items-center justify-between gap-6">
     {/* LOGO */}
-    <img src="./logo.png" alt="Brand Logo" className="h-12 md:h-14" />
+    <img src="/logo.png" alt="Brand Logo" className="h-12 md:h-14" />
 
     {/* COPYRIGHT */}
     <p className="text-xs text-gray-500 font-[Mulish] text-center">
@@ -457,9 +457,9 @@ useEffect(() => {
 
     {/* SOCIAL ICONS */}
     <div className="flex gap-5">
-      <img src="./youtube.png" alt="YouTube" className="h-5 w-5" />
-      <img src="./whatsapp.png" alt="Whatsapp" className="h-5 w-5" />
-      <img src="./instagram.png" alt="Instagram" className="h-5 w-5" />
+      <img src="/youtube.png" alt="YouTube" className="h-5 w-6" />
+      <img src="/whatsapp.png" alt="Whatsapp" className="h-5 w-5" />
+      <img src="/instagram.png" alt="Instagram" className="h-5 w-5" />
     </div>
   </div>
 </section>
