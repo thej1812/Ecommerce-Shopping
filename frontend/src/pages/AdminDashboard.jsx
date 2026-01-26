@@ -15,7 +15,7 @@ export default function AdminDashboard() {
       <div className="w-full border-b border-black px-10 py-4 flex items-center justify-between font-light">
         {/* LOGO */}
          <Link to="/admin">
-          <img src="./logo.png" alt="logo" className="h-14" />
+          <img src="/logo.png" alt="logo" className="h-14" />
         </Link>
 
         {/* LOGOUT */}
@@ -29,7 +29,7 @@ export default function AdminDashboard() {
 
       {/* MAIN CONTENT */}
       <div className="px-10 py-10 ">
-        <h1 className="text-2xl tracking-wide mb-10">
+        <h1 className="text-3xl md:text-4xl tracking-wide mb-10  font-[italiana]">
           Admin Dashboard
         </h1>
 
