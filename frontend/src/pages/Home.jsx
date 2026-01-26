@@ -116,7 +116,7 @@ useEffect(() => {
 <section className="w-full pt-20">
   {/* TITLE */}
   <div className="text-center mb-14">
-    <h2 className="text-4xl font-[italiana] mb-2 ">Categories</h2>
+    <h2 className=" text-3xl md:text-5xl font-[italiana] mb-2 ">Categories</h2>
     <p className="text-gray-500 text-sm font-[Mulish]">
       Explore your favorite brands in one place
     </p>
@@ -188,7 +188,7 @@ useEffect(() => {
 <section className="pt-20">
   {/* HEADER */}
   <div className="text-center mb-12">
-    <h2 className="text-4xl  font-[italiana]">
+    <h2 className="text-3xl md:text-5xl  font-[italiana]">
       New Arrivals
     </h2>
     <p className="text-gray-500 text-sm font-[Mulish]">
@@ -247,10 +247,10 @@ useEffect(() => {
   </div>
 </section>
 {/* ABOUT PRODUCTS */}
-<section className="py-20">
+<section className="pt-20">
   {/* HEADER */}
   <div className="text-center mb-14">
-    <h2 className="text-4xl font-[italiana]">About Products</h2>
+    <h2 className="text-3xl md:text-5xl font-[italiana]">About Products</h2>
     <p className="text-sm text-gray-500 mt-2">
       Every product, chosen with care.
     </p>
@@ -391,6 +391,75 @@ useEffect(() => {
           className="max-h-88 object-contain"
         />
       </div>
+    </div>
+  </div>
+</section>
+{/* YOUR LOOK, ELEVATED */}
+<section className="pt-14 md:pt-20 bg-white px-4 md:px-0">
+  {/* HEADER */}
+  <div className="text-center mb-12 md:mb-20">
+    <h2 className="text-3xl md:text-5xl font-[italiana] mb-3">
+      Your Look, Elevated
+    </h2>
+    <p className="text-xs md:text-sm text-gray-500 font-[Mulish] max-w-md mx-auto">
+      A glimpse of the elevated style you achieve when wearing our jewelry.
+    </p>
+  </div>
+
+  {/* IMAGE GRID */}
+  <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-14 items-start">
+    {/* LEFT LARGE IMAGE */}
+    <div className="md:col-span-6">
+      <img
+        src="./girl3.png"
+        alt="Jewelry Closeup"
+        className="w-full object-cover"
+      />
+    </div>
+
+    {/* RIGHT CONTENT */}
+    <div className="md:col-span-6 grid grid-cols-1 sm:grid-cols-2 gap-10">
+      {/* TOP IMAGE */}
+      <div>
+        <img
+          src="./girl.png"
+          alt="Model Jewelry"
+          className="w-full h-[260px] md:h-[350px] object-cover"
+        />
+        <p className="text-sm text-gray-600 font-[Mulish] mt-6 md:mt-[200px] max-w-xs">
+          The elegance you'll carry with confidence.
+        </p>
+      </div>
+
+      {/* BOTTOM IMAGE */}
+      <div className="md:mt-20">
+        <p className="text-sm text-gray-600 font-[Mulish] mb-6 max-w-xs">
+          Experience the refined appearance our designs bring to every outfit.
+        </p>
+        <img
+          src="./girl2.png"
+          alt="Bracelet Jewelry"
+          className="w-full h-[260px] md:h-[350px] object-cover md:mt-[200px]"
+        />
+      </div>
+    </div>
+  </div>
+
+  {/* FOOTER */}
+  <div className="max-w-6xl mx-auto mt-16 md:mt-24 pt-6 border-t border-gray-300 flex flex-col md:flex-row items-center justify-between gap-6">
+    {/* LOGO */}
+    <img src="./logo.png" alt="Brand Logo" className="h-12 md:h-14" />
+
+    {/* COPYRIGHT */}
+    <p className="text-xs text-gray-500 font-[Mulish] text-center">
+      © Copyrights-2025
+    </p>
+
+    {/* SOCIAL ICONS */}
+    <div className="flex gap-5">
+      <img src="./youtube.png" alt="YouTube" className="h-5 w-5" />
+      <img src="./whatsapp.png" alt="Whatsapp" className="h-5 w-5" />
+      <img src="./instagram.png" alt="Instagram" className="h-5 w-5" />
     </div>
   </div>
 </section>
