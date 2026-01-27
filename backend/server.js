@@ -17,7 +17,7 @@ const app = express();
 /* ✅ ADD THIS */
 app.use(
   cors({
-    origin: "https://ecommerce-shopping-k0ip.onrender.com",
+    origin: "https://ecommerce-shopping-2ub3.vercel.app/",
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"]
   })
