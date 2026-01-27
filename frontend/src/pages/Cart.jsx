@@ -37,7 +37,7 @@ export default function Cart() {
               {/* PRODUCT IMAGE */}
               {item.images?.length > 0 && (
                 <img
-                  src={`http://localhost:5000/uploads/${item.images[0]}`}
+                  src={`https://ecommerce-shopping-k0ip.onrender.com/uploads/${item.images[0]}`}
                   alt={item.name}
                   className="w-30 h-30 object-cover rounded"
                 />

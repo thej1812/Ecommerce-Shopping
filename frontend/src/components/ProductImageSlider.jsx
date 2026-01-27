@@ -24,7 +24,7 @@ export default function ProductImageSlider({ images }) {
         {images.map((img, index) => (
           <SwiperSlide key={index}>
             <img
-              src={`http://localhost:5000/uploads/${img}`}
+              src={`https://ecommerce-shopping-k0ip.onrender.com/uploads/${img}`}
               className="w-full h-96 object-contain rounded"
               alt="product"
             />

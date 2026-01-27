@@ -15,7 +15,7 @@ export default function ProductDetail() {
 
   /* FETCH PRODUCT */
   useEffect(() => {
-    fetch(`http://localhost:5000/api/products/${id}`)
+    fetch(`https://ecommerce-shopping-k0ip.onrender.com/api/products/${id}`)
       .then(res => res.json())
       .then(data => setProduct(data));
   }, [id]);
@@ -26,7 +26,7 @@ export default function ProductDetail() {
     if (!localStorage.getItem("token")) return;
 
     fetch(
-      `http://localhost:5000/api/orders/has-bought/${product._id}`,
+      `https://ecommerce-shopping-k0ip.onrender.com/api/orders/has-bought/${product._id}`,
       {
         headers: {
           Authorization: localStorage.getItem("token")

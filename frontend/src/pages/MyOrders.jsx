@@ -33,7 +33,7 @@ export default function MyOrders() {
 
   const confirmCancel = async () => {
     await fetch(
-      `http://localhost:5000/api/orders/${cancelId}/cancel`,
+      `https://ecommerce-shopping-k0ip.onrender.com/api/orders/${cancelId}/cancel`,
       {
         method: "PUT",
         headers: {

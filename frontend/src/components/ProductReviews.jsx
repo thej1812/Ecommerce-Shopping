@@ -4,7 +4,7 @@ export default function ProductReviews({ productId }) {
   const [reviews, setReviews] = useState([]);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/api/reviews/${productId}`)
+    fetch(`https://ecommerce-shopping-k0ip.onrender.com/api/reviews/${productId}`)
       .then(res => res.json())
       .then(data => setReviews(data));
   }, [productId]);
@@ -27,7 +27,7 @@ export default function ProductReviews({ productId }) {
             {r.images.map(img => (
               <img
                 key={img}
-                src={`http://localhost:5000/uploads/reviews/${img}`}
+                src={`https://ecommerce-shopping-k0ip.onrender.com/uploads/reviews/${img}`}
                 className="w-20 h-20 object-cover"
               />
             ))}
@@ -37,7 +37,7 @@ export default function ProductReviews({ productId }) {
             <video
               controls
               className="w-64 mt-2"
-              src={`http://localhost:5000/uploads/reviews/${r.video}`}
+              src={`https://ecommerce-shopping-k0ip.onrender.com/uploads/reviews/${r.video}`}
             />
           )}
         </div>

@@ -40,7 +40,7 @@ export default function Checkout() {
       totalAmount: total
     };
 
-    await fetch("http://localhost:5000/api/orders", {
+    await fetch("https://ecommerce-shopping-k0ip.onrender.com/api/orders", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"

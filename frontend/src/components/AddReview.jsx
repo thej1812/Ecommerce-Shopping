@@ -20,7 +20,7 @@ export default function AddReview({ productId, onAdded }) {
     }
 
     await fetch(
-      `http://localhost:5000/api/reviews/${productId}`,
+      `https://ecommerce-shopping-k0ip.onrender.com/api/reviews/${productId}`,
       {
         method: "POST",
         headers: {

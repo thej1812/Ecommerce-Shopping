@@ -11,7 +11,7 @@ export default function Products() {
     const params = new URLSearchParams(location.search);
     const categoryId = params.get("category");
 
-    let url = "http://localhost:5000/api/products";
+    let url = "https://ecommerce-shopping-k0ip.onrender.com/api/products";
     if (categoryId) url += `?category=${categoryId}`;
 
     const fetchProducts = () => {
@@ -56,7 +56,7 @@ export default function Products() {
 
               {product.images?.length > 0 && (
                 <img
-                  src={`http://localhost:5000/uploads/${product.images[0]}`}
+                  src={`https://ecommerce-shopping-k0ip.onrender.com/uploads/${product.images[0]}`}
                   alt={product.name}
                   className="
                     h-44 w-44 md:h-64 md:w-full object-cover transition-transform duration-300 group-hover:scale-105
