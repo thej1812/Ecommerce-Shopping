@@ -17,7 +17,7 @@ const app = express();
 /* ✅ ADD THIS */
 app.use(
   cors({
-    origin: "https://ecommerce-shopping-2ub3.vercel.app/",
+    origin: "https://ecommerce-shopping-theta.vercel.app/",
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"]
   })
