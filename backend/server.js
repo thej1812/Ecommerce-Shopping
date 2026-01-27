@@ -15,13 +15,29 @@ connectDB();
 const app = express();
 
 /* ✅ ADD THIS */
+const allowedOrigins = [
+  "http://localhost:5173",
+  "http://localhost:4173",
+  "https://ecommerce-shopping-theta.vercel.app"
+];
+
 app.use(
   cors({
-    origin: "https://ecommerce-shopping-theta.vercel.app/",
+    origin: function (origin, callback) {
+      if (!origin) return callback(null, true); // allow Postman, server requests
+
+      if (allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("CORS not allowed for this origin"));
+      }
+    },
     methods: ["GET", "POST", "PUT", "DELETE"],
-    allowedHeaders: ["Content-Type", "Authorization"]
+    allowedHeaders: ["Content-Type", "Authorization"],
+    credentials: true
   })
 );
+
 
 /* ✅ KEEP THIS */
 app.use(express.json());
