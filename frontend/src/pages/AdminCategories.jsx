@@ -17,7 +17,7 @@ export default function AdminCategories() {
   const [deleteName, setDeleteName] = useState("");
 
   const fetchCategories = () => {
-    fetch("http://localhost:5000/api/categories")
+    fetch("https://ecommerce-shopping-k0ip.onrender.com/api/categories")
       .then(res => res.json())
       .then(data => {
         if (Array.isArray(data)) setCategories(data);
@@ -38,7 +38,7 @@ export default function AdminCategories() {
     formData.append("name", name);
     formData.append("image", image);
 
-    await fetch("http://localhost:5000/api/categories/add", {
+    await fetch("https://ecommerce-shopping-k0ip.onrender.com/api/categories/add", {
       method: "POST",
       headers: {
         Authorization: localStorage.getItem("token")
@@ -53,7 +53,7 @@ export default function AdminCategories() {
 
   const confirmDelete = async () => {
     await fetch(
-      `http://localhost:5000/api/categories/${deleteId}`,
+      `https://ecommerce-shopping-k0ip.onrender.com/api/categories/${deleteId}`,
       {
         method: "DELETE",
         headers: {
@@ -129,7 +129,7 @@ export default function AdminCategories() {
             className="group border p-6  overflow-hidden bg-white hover:shadow-md transition"
           >
             <img
-              src={`http://localhost:5000/uploads/categories/${cat.image}`}
+              src={`https://ecommerce-shopping-k0ip.onrender.com/uploads/categories/${cat.image}`}
               alt={cat.name}
               className="h-40 w-full object-cover"
             />

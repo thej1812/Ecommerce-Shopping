@@ -21,7 +21,7 @@ export default function AdminProducts() {
   }, []);
 
   const fetchProducts = () => {
-    fetch("http://localhost:5000/api/products")
+    fetch("https://ecommerce-shopping-k0ip.onrender.com/api/products")
       .then(res => res.json())
       .then(data => {
         setProducts(data);
@@ -34,7 +34,7 @@ export default function AdminProducts() {
   // UPDATE QUANTITY
   const updateQuantity = async (id) => {
     await fetch(
-      `http://localhost:5000/api/products/${id}/quantity`,
+      `https://ecommerce-shopping-k0ip.onrender.com/api/products/${id}/quantity`,
       {
         method: "PUT",
         headers: {
@@ -53,7 +53,7 @@ export default function AdminProducts() {
   // CONFIRM DELETE
   const confirmDelete = async () => {
     await fetch(
-      `http://localhost:5000/api/products/${deleteId}`,
+      `https://ecommerce-shopping-k0ip.onrender.com/api/products/${deleteId}`,
       {
         method: "DELETE",
         headers: {
@@ -109,7 +109,7 @@ export default function AdminProducts() {
               <div className="flex gap-4 items-center">
                 {product.images?.length > 0 && (
                   <img
-                    src={`http://localhost:5000/uploads/${product.images[0]}`}
+                    src={`https://ecommerce-shopping-k0ip.onrender.com/uploads/${product.images[0]}`}
                     alt={product.name}
                     className="w-16 h-16 object-cover rounded"
                   />

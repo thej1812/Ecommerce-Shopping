@@ -24,7 +24,7 @@ export default function AddProduct() {
   const [img4, setImg4] = useState(null);
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/categories")
+    fetch("https://ecommerce-shopping-k0ip.onrender.com/api/categories")
       .then(res => res.json())
       .then(data => setCategories(data))
       .catch(err => console.error(err));
@@ -46,7 +46,7 @@ export default function AddProduct() {
       if (img4) formData.append("images", img4);
 
       await axios.post(
-        "http://localhost:5000/api/products/add",
+        "https://ecommerce-shopping-k0ip.onrender.com/api/products/add",
         formData,
         {
           headers: {

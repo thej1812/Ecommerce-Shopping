@@ -12,7 +12,7 @@ export default function Orders() {
 
   useEffect(() => {
     const fetchOrders = () => {
-      fetch("http://localhost:5000/api/orders", {
+      fetch("https://ecommerce-shopping-k0ip.onrender.com/api/orders", {
         headers: {
           Authorization: localStorage.getItem("token")
         }
@@ -28,7 +28,7 @@ export default function Orders() {
 
   const updateStatus = async (orderId, newStatus) => {
     await fetch(
-      `http://localhost:5000/api/orders/${orderId}/status`,
+      `https://ecommerce-shopping-k0ip.onrender.com/api/orders/${orderId}/status`,
       {
         method: "PUT",
         headers: {
@@ -135,7 +135,7 @@ export default function Orders() {
                   {/* PRODUCT IMAGE */}
                   {item?.images?.length > 0 && (
                     <img
-                      src={`http://localhost:5000/uploads/${item.images[0]}`}
+                      src={`https://ecommerce-shopping-k0ip.onrender.com/uploads/${item.images[0]}`}
                       alt={item.name}
                       className="w-14 h-14 object-cover rounded"
                     />

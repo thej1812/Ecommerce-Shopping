@@ -6,7 +6,7 @@ export default function AdminProductImages() {
   const [images, setImages] = useState([]);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/api/products/${id}`)
+    fetch(`https://ecommerce-shopping-k0ip.onrender.com/api/products/${id}`)
       .then(res => res.json())
       .then(data => setImages(data.images));
   }, [id]);
@@ -15,7 +15,7 @@ export default function AdminProductImages() {
     setImages(newImages);
 
     await fetch(
-      `http://localhost:5000/api/products/${id}/images`,
+      `https://ecommerce-shopping-k0ip.onrender.com/api/products/${id}/images`,
       {
         method: "PUT",
         headers: {
@@ -56,7 +56,7 @@ export default function AdminProductImages() {
           className="flex items-center gap-4 mb-4"
         >
           <img
-            src={`http://localhost:5000/uploads/${img}`}
+            src={`https://ecommerce-shopping-k0ip.onrender.com/uploads/${img}`}
             className="w-24 h-24 object-cover"
           />
 
