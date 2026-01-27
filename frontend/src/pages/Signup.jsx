@@ -16,7 +16,7 @@ export default function Signup() {
 
     try {
       setError("");
-      await axios.post("http://localhost:5000/api/auth/signup", form);
+      await axios.post("https://ecommerce-shopping-k0ip.onrender.com/api/auth/signup", form);
       alert("Signup successful");
       navigate("/login");
     } catch (err) {

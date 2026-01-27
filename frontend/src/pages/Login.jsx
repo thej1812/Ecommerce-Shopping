@@ -17,7 +17,7 @@ export default function Login() {
     try {
       setError("");
       const res = await axios.post(
-        "http://localhost:5000/api/auth/login",
+        "https://ecommerce-shopping-k0ip.onrender.com/api/auth/login",
         form
       );
 

@@ -20,7 +20,7 @@ export default function Navbar() {
   /* FETCH */
   useEffect(() => {
     if (role !== "admin") {
-      fetch("http://localhost:5000/api/categories")
+      fetch("https://ecommerce-shopping-k0ip.onrender.com/api/categories")
         .then(res => res.json())
         .then(data => setCategories(data))
         .catch(console.error);

@@ -7,13 +7,13 @@ export default function Home() {
 const [categories, setCategories] = useState([]);
 
 useEffect(() => {
-  fetch("http://localhost:5000/api/categories")
+  fetch("https://ecommerce-shopping-k0ip.onrender.com/api/categories")
     .then(res => res.json())
     .then(data => setCategories(data));
 }, []);
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/products/latest")
+    fetch("https://ecommerce-shopping-k0ip.onrender.com/api/products/latest")
       .then(res => {
         if (!res.ok) {
           throw new Error("Failed to fetch latest products");
@@ -152,7 +152,7 @@ useEffect(() => {
       >
         {cat.image && (
           <img
-            src={`http://localhost:5000/uploads/categories/${cat.image}`}
+            src={`https://ecommerce-shopping-k0ip.onrender.com/uploads/categories/${cat.image}`}
             alt={cat.name}
             className="
               w-full h-full
@@ -223,7 +223,7 @@ useEffect(() => {
           <div className="relative overflow-hidden">
             {product.images && product.images.length > 0 && (
               <img
-                src={`http://localhost:5000/uploads/${product.images[0]}`}
+                src={`https://ecommerce-shopping-k0ip.onrender.com/uploads/${product.images[0]}`}
                 alt={product.name}
                 className="h-44 w-44 md:h-64 md:w-full object-cover transition-transform duration-300 group-hover:scale-105"
               />
