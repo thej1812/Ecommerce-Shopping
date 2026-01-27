@@ -15,7 +15,9 @@ export default function Checkout() {
 
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
+  // Redirect if cart is empty
   useEffect(() => {
     if (cart.length === 0) {
       navigate("/products");
@@ -23,13 +25,14 @@ export default function Checkout() {
   }, [cart, navigate]);
 
   const placeOrder = async () => {
-    // REQUIRED FIELD CHECK
+    // Required fields check
     if (!details.name || !details.address || !details.phone) {
       setError("Please fill all required fields");
       return;
     }
 
     setError("");
+    setLoading(true);
 
     const orderData = {
       userId: localStorage.getItem("userId"),
@@ -40,20 +43,24 @@ export default function Checkout() {
       totalAmount: total
     };
 
-    await fetch("https://ecommerce-shopping-k0ip.onrender.com/api/orders", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(orderData)
-    });
+    try {
+      await axios.post(
+        "https://ecommerce-shopping-k0ip.onrender.com/api/orders",
+        orderData
+      );
 
-    setSuccess(true);
+      setSuccess(true);
 
-    setTimeout(() => {
-      clearCart();
-      navigate("/my-orders");
-    }, 2000);
+      setTimeout(() => {
+        clearCart();
+        navigate("/my-orders");
+      }, 2000);
+
+    } catch (err) {
+      setError("Failed to place order. Please try again.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -74,30 +81,30 @@ export default function Checkout() {
         <input
           placeholder="Full Name *"
           value={details.name}
-          className="w-full border-b border-gray-300 focus:border-black outline-none py-2 mb-6 text-sm"
           onChange={e =>
             setDetails({ ...details, name: e.target.value })
           }
+          className="w-full border-b border-gray-300 focus:border-black outline-none py-2 mb-6 text-sm"
         />
 
         {/* ADDRESS */}
         <input
           placeholder="Delivery Address *"
           value={details.address}
-          className="w-full border-b border-gray-300 focus:border-black outline-none py-2 mb-6 text-sm"
           onChange={e =>
             setDetails({ ...details, address: e.target.value })
           }
+          className="w-full border-b border-gray-300 focus:border-black outline-none py-2 mb-6 text-sm"
         />
 
         {/* PHONE */}
         <input
           placeholder="Phone Number *"
           value={details.phone}
-          className="w-full border-b border-gray-300 focus:border-black outline-none py-2 mb-6 text-sm"
           onChange={e =>
             setDetails({ ...details, phone: e.target.value })
           }
+          className="w-full border-b border-gray-300 focus:border-black outline-none py-2 mb-6 text-sm"
         />
 
         {/* ERROR MESSAGE */}
@@ -127,14 +134,18 @@ export default function Checkout() {
         {/* PLACE ORDER BUTTON */}
         <button
           onClick={placeOrder}
-          disabled={success}
+          disabled={success || loading}
           className={`w-full py-3 text-sm transition ${
-            success
+            success || loading
               ? "bg-gray-400 cursor-not-allowed"
               : "bg-black text-white hover:bg-gray-900"
           }`}
         >
-          {success ? "Order Placed" : "Place Order"}
+          {loading
+            ? "Placing Order..."
+            : success
+            ? "Order Placed"
+            : "Place Order"}
         </button>
       </div>
     </section>
