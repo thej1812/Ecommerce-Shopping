@@ -2,6 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { FiShoppingBag, FiUser } from "react-icons/fi";
+import { API_URL } from "../utils/api.js";
 
 export default function Navbar() {
   const [categories, setCategories] = useState([]);
@@ -20,7 +21,7 @@ export default function Navbar() {
   /* FETCH */
   useEffect(() => {
     if (role !== "admin") {
-      fetch("https://ecommerce-shopping-k0ip.onrender.com/api/categories")
+      fetch(`${API_URL}/api/categories`)
         .then(res => res.json())
         .then(data => setCategories(data))
         .catch(console.error);

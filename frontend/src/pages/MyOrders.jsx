@@ -1,20 +1,39 @@
+import { API_URL } from "../utils/api.js";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function MyOrders() {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   // UI ONLY – cancel modal state
   const [cancelId, setCancelId] = useState(null);
 
   useEffect(() => {
+    const token = localStorage.getItem("token");
+
+    // Redirect to login if not authenticated
+    if (!token) {
+      navigate("/login");
+      return;
+    }
+
     const fetchOrders = () => {
-      fetch("http://localhost:5000/api/orders/my", {
+      fetch(`${API_URL}/api/orders/my`, {
         headers: {
-          Authorization: localStorage.getItem("token")
+          Authorization: token
         }
       })
-        .then(res => res.json())
+        .then(res => {
+          if (res.status === 401) {
+            // Token is invalid, redirect to login
+            localStorage.removeItem("token");
+            navigate("/login");
+            return;
+          }
+          return res.json();
+        })
         .then(data => {
           if (Array.isArray(data)) {
             setOrders(data);
@@ -29,11 +48,11 @@ export default function MyOrders() {
     fetchOrders();
     const interval = setInterval(fetchOrders, 3000);
     return () => clearInterval(interval);
-  }, []);
+  }, [navigate]);
 
   const confirmCancel = async () => {
     await fetch(
-      `https://ecommerce-shopping-k0ip.onrender.com/api/orders/${cancelId}/cancel`,
+      `${API_URL}/api/orders/${cancelId}/cancel`,
       {
         method: "PUT",
         headers: {

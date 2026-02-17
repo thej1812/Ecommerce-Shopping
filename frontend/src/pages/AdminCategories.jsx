@@ -1,3 +1,4 @@
+import { API_URL } from "../utils/api.js";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -17,7 +18,7 @@ export default function AdminCategories() {
   const [deleteName, setDeleteName] = useState("");
 
   const fetchCategories = () => {
-    fetch("https://ecommerce-shopping-k0ip.onrender.com/api/categories")
+    fetch(`${API_URL}/api/categories`)
       .then(res => res.json())
       .then(data => {
         if (Array.isArray(data)) setCategories(data);
@@ -38,7 +39,7 @@ export default function AdminCategories() {
     formData.append("name", name);
     formData.append("image", image);
 
-    await fetch("https://ecommerce-shopping-k0ip.onrender.com/api/categories/add", {
+    await fetch(`${API_URL}/api/categories/add`, {
       method: "POST",
       headers: {
         Authorization: localStorage.getItem("token")
@@ -53,7 +54,7 @@ export default function AdminCategories() {
 
   const confirmDelete = async () => {
     await fetch(
-      `https://ecommerce-shopping-k0ip.onrender.com/api/categories/${deleteId}`,
+      `${API_URL}/api/categories/${deleteId}`,
       {
         method: "DELETE",
         headers: {
@@ -129,7 +130,7 @@ export default function AdminCategories() {
             className="group border p-6  overflow-hidden bg-white hover:shadow-md transition"
           >
             <img
-              src={`https://ecommerce-shopping-k0ip.onrender.com/uploads/categories/${cat.image}`}
+              src={`${API_URL}/uploads/categories/${cat.image}`}
               alt={cat.name}
               className="h-40 w-full object-cover"
             />

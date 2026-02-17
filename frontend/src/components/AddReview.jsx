@@ -1,3 +1,4 @@
+import { API_URL } from "../utils/api.js";
 import { useState } from "react";
 
 export default function AddReview({ productId, onAdded }) {
@@ -20,7 +21,7 @@ export default function AddReview({ productId, onAdded }) {
     }
 
     await fetch(
-      `https://ecommerce-shopping-k0ip.onrender.com/api/reviews/${productId}`,
+      `${API_URL}/api/reviews/${productId}`,
       {
         method: "POST",
         headers: {

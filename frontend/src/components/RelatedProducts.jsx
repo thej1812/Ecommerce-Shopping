@@ -1,3 +1,4 @@
+import { API_URL } from "../utils/api.js";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -8,7 +9,7 @@ export default function RelatedProducts({ category, productId }) {
     if (!category) return;
 
     fetch(
-      `https://ecommerce-shopping-k0ip.onrender.com/api/products?category=${category}&exclude=${productId}`
+      `${API_URL}/api/products?category=${category}&exclude=${productId}`
     )
       .then(res => res.json())
       .then(data => {
@@ -35,7 +36,7 @@ export default function RelatedProducts({ category, productId }) {
           >
             {p.images && p.images.length > 0 && (
               <img
-                src={`https://ecommerce-shopping-k0ip.onrender.com/uploads/${p.images[0]}`}
+                src={`${API_URL}/uploads/${p.images[0]}`}
                 className="h-44 w-44 md:h-64 md:w-full object-cover transition-transform duration-300 group-hover:scale-105"
                 alt={p.name}
               />

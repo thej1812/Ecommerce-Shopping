@@ -1,3 +1,4 @@
+import { API_URL } from "../utils/api.js";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
@@ -6,7 +7,7 @@ export default function AdminProductImages() {
   const [images, setImages] = useState([]);
 
   useEffect(() => {
-    fetch(`https://ecommerce-shopping-k0ip.onrender.com/api/products/${id}`)
+    fetch(`${API_URL}/api/products/${id}`)
       .then(res => res.json())
       .then(data => setImages(data.images));
   }, [id]);
@@ -15,7 +16,7 @@ export default function AdminProductImages() {
     setImages(newImages);
 
     await fetch(
-      `https://ecommerce-shopping-k0ip.onrender.com/api/products/${id}/images`,
+      `${API_URL}/api/products/${id}/images`,
       {
         method: "PUT",
         headers: {
@@ -56,7 +57,7 @@ export default function AdminProductImages() {
           className="flex items-center gap-4 mb-4"
         >
           <img
-            src={`https://ecommerce-shopping-k0ip.onrender.com/uploads/${img}`}
+            src={`${API_URL}/uploads/${img}`}
             className="w-24 h-24 object-cover"
           />
 

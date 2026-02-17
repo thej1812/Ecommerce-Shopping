@@ -1,3 +1,4 @@
+import { API_URL } from "../utils/api.js";
 import { useContext } from "react";
 import { CartContext } from "../context/CartContext";
 import { Link } from "react-router-dom";
@@ -37,7 +38,7 @@ export default function Cart() {
               {/* PRODUCT IMAGE */}
               {item.images?.length > 0 && (
                 <img
-                  src={`https://ecommerce-shopping-k0ip.onrender.com/uploads/${item.images[0]}`}
+                  src={`${API_URL}/uploads/${item.images[0]}`}
                   alt={item.name}
                   className="w-30 h-30 object-cover rounded"
                 />

@@ -1,3 +1,4 @@
+import { API_URL } from "../utils/api.js";
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -17,7 +18,7 @@ export default function Login() {
     try {
       setError("");
       const res = await axios.post(
-        "https://ecommerce-shopping-k0ip.onrender.com/api/auth/login",
+        `${API_URL}/api/auth/login`,
         form
       );
 

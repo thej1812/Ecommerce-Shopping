@@ -1,3 +1,4 @@
+import { API_URL } from "../utils/api.js";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -21,7 +22,7 @@ export default function AdminProducts() {
   }, []);
 
   const fetchProducts = () => {
-    fetch("https://ecommerce-shopping-k0ip.onrender.com/api/products")
+    fetch(`${API_URL}/api/products`)
       .then(res => res.json())
       .then(data => {
         setProducts(data);
@@ -34,7 +35,7 @@ export default function AdminProducts() {
   // UPDATE QUANTITY
   const updateQuantity = async (id) => {
     await fetch(
-      `https://ecommerce-shopping-k0ip.onrender.com/api/products/${id}/quantity`,
+      `${API_URL}/api/products/${id}/quantity`,
       {
         method: "PUT",
         headers: {
@@ -53,7 +54,7 @@ export default function AdminProducts() {
   // CONFIRM DELETE
   const confirmDelete = async () => {
     await fetch(
-      `https://ecommerce-shopping-k0ip.onrender.com/api/products/${deleteId}`,
+      `${API_URL}/api/products/${deleteId}`,
       {
         method: "DELETE",
         headers: {
@@ -109,7 +110,7 @@ export default function AdminProducts() {
               <div className="flex gap-4 items-center">
                 {product.images?.length > 0 && (
                   <img
-                    src={`https://ecommerce-shopping-k0ip.onrender.com/uploads/${product.images[0]}`}
+                    src={`${API_URL}/uploads/${product.images[0]}`}
                     alt={product.name}
                     className="w-16 h-16 object-cover rounded"
                   />

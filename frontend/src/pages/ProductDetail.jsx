@@ -1,3 +1,4 @@
+import { API_URL } from "../utils/api.js";
 import { useEffect, useState, useContext } from "react";
 import { useParams } from "react-router-dom";
 import ProductImageSlider from "../components/ProductImageSlider";
@@ -15,7 +16,7 @@ export default function ProductDetail() {
 
   /* FETCH PRODUCT */
   useEffect(() => {
-    fetch(`https://ecommerce-shopping-k0ip.onrender.com/api/products/${id}`)
+    fetch(`${API_URL}/api/products/${id}`)
       .then(res => res.json())
       .then(data => setProduct(data));
   }, [id]);
@@ -26,7 +27,7 @@ export default function ProductDetail() {
     if (!localStorage.getItem("token")) return;
 
     fetch(
-      `https://ecommerce-shopping-k0ip.onrender.com/api/orders/has-bought/${product._id}`,
+      `${API_URL}/api/orders/has-bought/${product._id}`,
       {
         headers: {
           Authorization: localStorage.getItem("token")

@@ -1,3 +1,4 @@
+import { API_URL } from "../utils/api.js";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -24,7 +25,7 @@ export default function AddProduct() {
   const [img4, setImg4] = useState(null);
 
   useEffect(() => {
-    fetch("https://ecommerce-shopping-k0ip.onrender.com/api/categories")
+    fetch(`${API_URL}/api/categories`)
       .then(res => res.json())
       .then(data => setCategories(data))
       .catch(err => console.error(err));
@@ -46,7 +47,7 @@ export default function AddProduct() {
       if (img4) formData.append("images", img4);
 
       await axios.post(
-        "https://ecommerce-shopping-k0ip.onrender.com/api/products/add",
+        `${API_URL}/api/products/add`,
         formData,
         {
           headers: {

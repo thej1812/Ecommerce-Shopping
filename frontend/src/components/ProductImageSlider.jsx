@@ -1,3 +1,4 @@
+import { API_URL } from "../utils/api.js";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { useState } from "react";
 import "swiper/css";
@@ -24,7 +25,7 @@ export default function ProductImageSlider({ images }) {
         {images.map((img, index) => (
           <SwiperSlide key={index}>
             <img
-              src={`https://ecommerce-shopping-k0ip.onrender.com/uploads/${img}`}
+              src={`${API_URL}/uploads/${img}`}
               className="w-full h-96 object-contain rounded"
               alt="product"
             />
@@ -37,7 +38,7 @@ export default function ProductImageSlider({ images }) {
         {images.map((img, index) => (
           <img
             key={index}
-            src={`http://localhost:5000/uploads/${img}`}
+            src={`${API_URL}/uploads/${img}`}
             onClick={() => {
               if (swiperRef) {
                 swiperRef.slideTo(index);       // 🔴 THIS WAS MISSING

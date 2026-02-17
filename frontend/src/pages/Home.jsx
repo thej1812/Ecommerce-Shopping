@@ -1,19 +1,21 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { FiShoppingBag } from "react-icons/fi";
+import { API_URL } from "../utils/api.js";
+
 export default function Home() {
   const [latestProducts, setLatestProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 const [categories, setCategories] = useState([]);
 
 useEffect(() => {
-  fetch("https://ecommerce-shopping-k0ip.onrender.com/api/categories")
+  fetch(`${API_URL}/api/categories`)
     .then(res => res.json())
     .then(data => setCategories(data));
 }, []);
 
   useEffect(() => {
-    fetch("https://ecommerce-shopping-k0ip.onrender.com/api/products/latest")
+    fetch(`${API_URL}/api/products/latest`)
       .then(res => {
         if (!res.ok) {
           throw new Error("Failed to fetch latest products");
@@ -152,7 +154,7 @@ useEffect(() => {
       >
         {cat.image && (
           <img
-            src={`https://ecommerce-shopping-k0ip.onrender.com/uploads/categories/${cat.image}`}
+            src={`${API_URL}/uploads/categories/${cat.image}`}
             alt={cat.name}
             className="
               w-full h-full
@@ -223,7 +225,7 @@ useEffect(() => {
           <div className="relative overflow-hidden">
             {product.images && product.images.length > 0 && (
               <img
-                src={`https://ecommerce-shopping-k0ip.onrender.com/uploads/${product.images[0]}`}
+                src={`${API_URL}/uploads/${product.images[0]}`}
                 alt={product.name}
                 className="h-44 w-44 md:h-64 md:w-full object-cover transition-transform duration-300 group-hover:scale-105"
               />

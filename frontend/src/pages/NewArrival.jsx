@@ -1,3 +1,4 @@
+import { API_URL } from "../utils/api.js";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -6,7 +7,7 @@ export default function NewArrival() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("https://ecommerce-shopping-k0ip.onrender.com/api/products/latest")
+    fetch(`${API_URL}/api/products/latest`)
       .then(res => {
         if (!res.ok) {
           throw new Error("Failed to fetch latest products");
@@ -65,7 +66,7 @@ export default function NewArrival() {
             <div className="relative overflow-hidden bg-gray-100">
               {product.images?.length > 0 && (
                 <img
-                  src={`https://ecommerce-shopping-k0ip.onrender.com/uploads/${product.images[0]}`}
+                  src={`${API_URL}/uploads/${product.images[0]}`}
                   alt={product.name}
                   className="h-44 w-44 md:h-64 md:w-full object-cover transition-transform duration-500 group-hover:scale-110"
                 />

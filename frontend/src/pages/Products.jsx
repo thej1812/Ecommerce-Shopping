@@ -1,6 +1,7 @@
 import { useEffect, useState, useContext } from "react";
 import { CartContext } from "../context/CartContext";
 import { Link, useLocation } from "react-router-dom";
+import { API_URL } from "../utils/api.js";
 
 export default function Products() {
   const [products, setProducts] = useState([]);
@@ -11,7 +12,7 @@ export default function Products() {
     const params = new URLSearchParams(location.search);
     const categoryId = params.get("category");
 
-    let url = "https://ecommerce-shopping-k0ip.onrender.com/api/products";
+    let url = `${API_URL}/api/products`;
     if (categoryId) url += `?category=${categoryId}`;
 
     const fetchProducts = () => {
@@ -56,7 +57,7 @@ export default function Products() {
 
               {product.images?.length > 0 && (
                 <img
-                  src={`https://ecommerce-shopping-k0ip.onrender.com/uploads/${product.images[0]}`}
+                  src={`${API_URL}/uploads/${product.images[0]}`}
                   alt={product.name}
                   className="
                     h-44 w-44 md:h-64 md:w-full object-cover transition-transform duration-300 group-hover:scale-105

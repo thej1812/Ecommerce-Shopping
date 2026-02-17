@@ -1,3 +1,4 @@
+import { API_URL } from "../utils/api.js";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -12,7 +13,7 @@ export default function Orders() {
 
   useEffect(() => {
     const fetchOrders = () => {
-      fetch("https://ecommerce-shopping-k0ip.onrender.com/api/orders", {
+      fetch(`${API_URL}/api/orders`, {
         headers: {
           Authorization: localStorage.getItem("token")
         }
@@ -28,7 +29,7 @@ export default function Orders() {
 
   const updateStatus = async (orderId, newStatus) => {
     await fetch(
-      `https://ecommerce-shopping-k0ip.onrender.com/api/orders/${orderId}/status`,
+      `${API_URL}/api/orders/${orderId}/status`,
       {
         method: "PUT",
         headers: {
@@ -135,7 +136,7 @@ export default function Orders() {
                   {/* PRODUCT IMAGE */}
                   {item?.images?.length > 0 && (
                     <img
-                      src={`https://ecommerce-shopping-k0ip.onrender.com/uploads/${item.images[0]}`}
+                      src={`${API_URL}/uploads/${item.images[0]}`}
                       alt={item.name}
                       className="w-14 h-14 object-cover rounded"
                     />

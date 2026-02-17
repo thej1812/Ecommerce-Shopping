@@ -1,3 +1,4 @@
+import { API_URL } from "../utils/api.js";
 import { useContext, useEffect, useState } from "react";
 import { CartContext } from "../context/CartContext";
 import { useNavigate } from "react-router-dom";
@@ -45,7 +46,7 @@ export default function Checkout() {
 
     try {
       await axios.post(
-        "https://ecommerce-shopping-k0ip.onrender.com/api/orders",
+        `${API_URL}/api/orders`,
         orderData
       );
 
