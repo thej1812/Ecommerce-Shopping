@@ -110,7 +110,7 @@ export default function AdminProducts() {
               <div className="flex gap-4 items-center">
                 {product.images?.length > 0 && (
                   <img
-                    src={`${API_URL}/uploads/${product.images[0]}`}
+                    src={product.images[0]}
                     alt={product.name}
                     className="w-16 h-16 object-cover rounded"
                   />
