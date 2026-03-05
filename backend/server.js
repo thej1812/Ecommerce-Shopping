@@ -49,8 +49,6 @@ app.use("/api/orders", orderRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/categories", categoryRoutes);
 app.use("/api/reviews", reviewRoutes);
-/* ✅ IMAGE ACCESS */
-app.use("/uploads", express.static("uploads"));
 
 app.listen(5000, () =>
   console.log("Server running on port 5000")
