@@ -2,21 +2,9 @@ import express from "express";
 import Review from "../models/Review.js";
 import Order from "../models/Order.js";
 import authMiddleware from "../middleware/authMiddleware.js";
-import multer from "multer";
+import upload, { uploadToCloudinary } from "../middleware/upload.js";
 
 const router = express.Router();
-
-/* =========================
-   MULTER CONFIG
-========================= */
-const storage = multer.diskStorage({
-  destination: "uploads/reviews/",
-  filename: (req, file, cb) => {
-    cb(null, Date.now() + "-" + file.originalname);
-  }
-});
-
-const upload = multer({ storage });
 
 /* =========================
    ADD REVIEW (ONLY IF ORDERED)
@@ -41,21 +29,28 @@ router.post(
         });
       }
 
-      const images = req.files?.images
-        ? req.files.images.map(f => f.filename)
-        : [];
+      // Upload images to Cloudinary
+      const imageUrls = [];
+      if (req.files?.images) {
+        for (const file of req.files.images) {
+          const url = await uploadToCloudinary(file, "ecommerce-reviews");
+          imageUrls.push(url);
+        }
+      }
 
-      const video = req.files?.video
-        ? req.files.video[0].filename
-        : null;
+      // Upload video to Cloudinary
+      let videoUrl = null;
+      if (req.files?.video && req.files.video[0]) {
+        videoUrl = await uploadToCloudinary(req.files.video[0], "ecommerce-reviews");
+      }
 
       const review = new Review({
         user: req.user.id,
         product: req.params.productId,
         rating: Number(req.body.rating),
         comment: req.body.comment,
-        images,
-        video
+        images: imageUrls,
+        video: videoUrl
       });
 
       await review.save();
