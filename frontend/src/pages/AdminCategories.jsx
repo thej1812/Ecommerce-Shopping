@@ -130,7 +130,7 @@ export default function AdminCategories() {
             className="group border p-6  overflow-hidden bg-white hover:shadow-md transition"
           >
             <img
-              src={`${API_URL}/uploads/categories/${cat.image}`}
+              src={cat.image}
               alt={cat.name}
               className="h-40 w-full object-cover"
             />
