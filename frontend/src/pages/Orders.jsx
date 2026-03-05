@@ -136,7 +136,7 @@ export default function Orders() {
                   {/* PRODUCT IMAGE */}
                   {item?.images?.length > 0 && (
                     <img
-                      src={`${API_URL}/uploads/${item.images[0]}`}
+                      src={item.images[0]}
                       alt={item.name}
                       className="w-14 h-14 object-cover rounded"
                     />
