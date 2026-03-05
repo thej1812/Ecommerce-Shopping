@@ -25,7 +25,7 @@ export default function ProductImageSlider({ images }) {
         {images.map((img, index) => (
           <SwiperSlide key={index}>
             <img
-              src={`${API_URL}/uploads/${img}`}
+              src={img}
               className="w-full h-96 object-contain rounded"
               alt="product"
             />
@@ -38,7 +38,7 @@ export default function ProductImageSlider({ images }) {
         {images.map((img, index) => (
           <img
             key={index}
-            src={`${API_URL}/uploads/${img}`}
+            src={img}
             onClick={() => {
               if (swiperRef) {
                 swiperRef.slideTo(index);       // 🔴 THIS WAS MISSING
