@@ -2,19 +2,9 @@ import express from "express";
 import Category from "../models/Category.js";
 import authMiddleware from "../middleware/authMiddleware.js";
 import adminMiddleware from "../middleware/adminMiddleware.js";
-import multer from "multer";
+import upload, { uploadToCloudinary, deleteFromCloudinary } from "../middleware/upload.js";
 
 const router = express.Router();
-
-/* IMAGE UPLOAD */
-const storage = multer.diskStorage({
-  destination: "uploads/categories/",
-  filename: (req, file, cb) => {
-    cb(null, Date.now() + "-" + file.originalname);
-  }
-});
-
-const upload = multer({ storage });
 
 /* ADD CATEGORY (ADMIN) */
 router.post(
@@ -24,14 +14,22 @@ router.post(
   upload.single("image"),
   async (req, res) => {
     try {
+      let imageUrl = "";
+      
+      // Upload image to Cloudinary
+      if (req.file) {
+        imageUrl = await uploadToCloudinary(req.file, "ecommerce-categories");
+      }
+
       const category = new Category({
         name: req.body.name,
-        image: req.file.filename
+        image: imageUrl
       });
 
       await category.save();
       res.json({ message: "Category added" });
     } catch (error) {
+      console.error(error);
       res.status(500).json({ message: "Failed to add category" });
     }
   }
@@ -49,8 +47,20 @@ router.delete(
   authMiddleware,
   adminMiddleware,
   async (req, res) => {
-    await Category.findByIdAndDelete(req.params.id);
-    res.json({ message: "Category deleted" });
+    try {
+      const category = await Category.findById(req.params.id);
+      
+      // Delete image from Cloudinary
+      if (category && category.image) {
+        await deleteFromCloudinary(category.image);
+      }
+      
+      await Category.findByIdAndDelete(req.params.id);
+      res.json({ message: "Category deleted" });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: "Failed to delete category" });
+    }
   }
 );
 
