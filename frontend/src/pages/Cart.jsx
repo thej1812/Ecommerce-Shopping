@@ -38,7 +38,7 @@ export default function Cart() {
               {/* PRODUCT IMAGE */}
               {item.images?.length > 0 && (
                 <img
-                  src={`${API_URL}/uploads/${item.images[0]}`}
+                  src={item.images[0]}
                   alt={item.name}
                   className="w-30 h-30 object-cover rounded"
                 />
