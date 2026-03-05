@@ -28,7 +28,7 @@ export default function ProductReviews({ productId }) {
             {r.images.map(img => (
               <img
                 key={img}
-                src={`${API_URL}/uploads/reviews/${img}`}
+                src={img}
                 className="w-20 h-20 object-cover"
               />
             ))}
@@ -38,7 +38,7 @@ export default function ProductReviews({ productId }) {
             <video
               controls
               className="w-64 mt-2"
-              src={`${API_URL}/uploads/reviews/${r.video}`}
+              src={r.video}
             />
           )}
         </div>
