@@ -57,7 +57,7 @@ export default function Products() {
 
               {product.images?.length > 0 && (
                 <img
-                  src={`${API_URL}/uploads/${product.images[0]}`}
+                  src={product.images[0]}
                   alt={product.name}
                   className="
                     h-44 w-44 md:h-64 md:w-full object-cover transition-transform duration-300 group-hover:scale-105
