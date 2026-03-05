@@ -57,7 +57,7 @@ export default function AdminProductImages() {
           className="flex items-center gap-4 mb-4"
         >
           <img
-            src={`${API_URL}/uploads/${img}`}
+            src={img}
             className="w-24 h-24 object-cover"
           />
 
