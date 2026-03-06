@@ -118,6 +118,8 @@ export default function Navbar() {
         {role !== "admin" && (
           <div className="hidden md:flex absolute left-1/2 -translate-x-1/2 items-center gap-12 text-sm">
 
+            <Link to="/">Home</Link>
+
             <Link to="/products">All Product</Link>
 
             {/* GSAP DROPDOWN */}
@@ -184,6 +186,7 @@ export default function Navbar() {
         className="md:hidden absolute top-full left-0 w-full bg-white opacity-0 -translate-y-5 z-50"
       >
         <div className="flex flex-col items-center gap-6 py-8 text-sm">
+          <Link to="/" onClick={() => setOpen(false)}>Home</Link>
           <Link to="/products" onClick={() => setOpen(false)}>All Product</Link>
 
           <select
