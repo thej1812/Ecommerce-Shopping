@@ -3,46 +3,105 @@ import { useEffect, useState } from "react";
 
 export default function ProductReviews({ productId }) {
   const [reviews, setReviews] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch(`${API_URL}/api/reviews/${productId}`)
+    fetch(`${API_URL}/api/reviews/product/${productId}`)
       .then(res => res.json())
-      .then(data => setReviews(data));
+      .then(data => {
+        setReviews(data);
+        setLoading(false);
+      })
+      .catch(err => {
+        console.error(err);
+        setLoading(false);
+      });
   }, [productId]);
 
+  const renderStars = (rating) => {
+    return (
+      <div className="flex gap-1">
+        {[1, 2, 3, 4, 5].map((star) => (
+          <span
+            key={star}
+            className={star <= rating ? "text-yellow-400" : "text-gray-300"}
+          >
+            ★
+          </span>
+        ))}
+      </div>
+    );
+  };
+
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric"
+    });
+  };
+
+  if (loading) {
+    return (
+      <div className="mt-12 py-8">
+        <p className="text-center text-gray-500">Loading reviews...</p>
+      </div>
+    );
+  }
+
   return (
-    <div className="mt-8">
-      <h2 className="text-xl font-bold mb-4">
+    <div className="mt-12 py-8 border-t">
+      <h2 className="text-2xl font-[italiana] mb-6">
         Customer Reviews
       </h2>
 
-      {reviews.map(r => (
-        <div key={r._id} className="border p-4 mb-4">
-          <p className="font-semibold">
-            {r.user.name} – ⭐ {r.rating}/5
-          </p>
+      {reviews.length === 0 ? (
+        <p className="text-gray-500 text-center py-8">
+          No reviews yet. Be the first to review this product!
+        </p>
+      ) : (
+        <div className="space-y-6">
+          {reviews.map((review) => (
+            <div
+              key={review._id}
+              className="border rounded-lg p-6 bg-white hover:shadow-md transition"
+            >
+              {/* User Info & Rating */}
+              <div className="flex items-start justify-between mb-3">
+                <div>
+                  <p className="font-medium text-gray-800">
+                    {review.user?.name || "Anonymous"}
+                  </p>
+                  <div className="flex items-center gap-2 mt-1">
+                    {renderStars(review.rating)}
+                    <span className="text-sm text-gray-500">
+                      {review.rating}/5
+                    </span>
+                  </div>
+                </div>
+                <p className="text-sm text-gray-500">
+                  {formatDate(review.createdAt)}
+                </p>
+              </div>
 
-          <p className="mt-1">{r.comment}</p>
+              {/* Review Description */}
+              <p className="text-gray-700 mb-4">{review.description}</p>
 
-          <div className="flex gap-2 mt-2">
-            {r.images.map(img => (
-              <img
-                key={img}
-                src={img}
-                className="w-20 h-20 object-cover"
-              />
-            ))}
-          </div>
-
-          {r.video && (
-            <video
-              controls
-              className="w-64 mt-2"
-              src={r.video}
-            />
-          )}
+              {/* Review Image */}
+              {review.reviewImage && (
+                <div className="mt-4">
+                  <img
+                    src={review.reviewImage}
+                    alt="Review"
+                    className="w-full max-w-md h-64 object-cover rounded-lg"
+                  />
+                </div>
+              )}
+            </div>
+          ))}
         </div>
-      ))}
+      )}
     </div>
   );
 }
