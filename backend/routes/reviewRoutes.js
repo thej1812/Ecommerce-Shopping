@@ -18,6 +18,15 @@ router.post(
       const { productId, orderId } = req.params;
       const { rating, description } = req.body;
 
+      console.log("Adding review:", { productId, orderId, userId: req.user.id });
+
+      // Validate input
+      if (!rating || !description) {
+        return res.status(400).json({
+          message: "Rating and description are required"
+        });
+      }
+
       // Check if order exists and belongs to user
       const order = await Order.findOne({
         _id: orderId,
@@ -64,7 +73,9 @@ router.post(
       // Upload image to Cloudinary if provided
       let reviewImageUrl = null;
       if (req.file) {
+        console.log("Uploading review image to Cloudinary...");
         reviewImageUrl = await uploadToCloudinary(req.file, "ecommerce-reviews");
+        console.log("Review image uploaded:", reviewImageUrl);
       }
 
       // Create review
@@ -73,15 +84,22 @@ router.post(
         product: productId,
         order: orderId,
         rating: Number(rating),
-        description,
+        description: description.trim(),
         reviewImage: reviewImageUrl
       });
 
       await review.save();
+      console.log("Review saved successfully:", review._id);
       
       res.json({ 
         message: "Review added successfully",
-        review
+        review: {
+          _id: review._id,
+          rating: review.rating,
+          description: review.description,
+          reviewImage: review.reviewImage,
+          createdAt: review.createdAt
+        }
       });
     } catch (error) {
       console.error("Add review error:", error);
@@ -93,7 +111,10 @@ router.post(
         });
       }
       
-      res.status(500).json({ message: "Failed to add review" });
+      res.status(500).json({ 
+        message: "Failed to add review",
+        error: error.message 
+      });
     }
   }
 );
@@ -103,16 +124,26 @@ router.post(
 ========================= */
 router.get("/product/:productId", async (req, res) => {
   try {
+    const { productId } = req.params;
+    
+    console.log("Fetching reviews for product:", productId);
+
     const reviews = await Review.find({
-      product: req.params.productId
+      product: productId
     })
     .populate("user", "name")
-    .sort({ createdAt: -1 });
+    .sort({ createdAt: -1 })
+    .lean(); // Use lean() for better performance
+
+    console.log(`Found ${reviews.length} reviews for product ${productId}`);
 
     res.json(reviews);
   } catch (error) {
     console.error("Get reviews error:", error);
-    res.status(500).json({ message: "Failed to fetch reviews" });
+    res.status(500).json({ 
+      message: "Failed to fetch reviews",
+      error: error.message 
+    });
   }
 });
 
@@ -148,7 +179,10 @@ router.get("/can-review/:productId/:orderId", authMiddleware, async (req, res) =
     res.json({ canReview: true });
   } catch (error) {
     console.error("Check review error:", error);
-    res.status(500).json({ message: "Failed to check review status" });
+    res.status(500).json({ 
+      message: "Failed to check review status",
+      error: error.message 
+    });
   }
 });
 
