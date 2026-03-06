@@ -8,6 +8,7 @@ import orderRoutes from "./routes/orderRoutes.js";
 import authRoutes from "./routes/authRoutes.js";
 import categoryRoutes from "./routes/categoryRoutes.js";
 import reviewRoutes from "./routes/reviewRoutes.js";
+import adminRoutes from "./routes/adminRoutes.js";
 
 dotenv.config();
 connectDB();
@@ -49,6 +50,7 @@ app.use("/api/orders", orderRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/categories", categoryRoutes);
 app.use("/api/reviews", reviewRoutes);
+app.use("/api/admin", adminRoutes);
 
 app.listen(5000, () =>
   console.log("Server running on port 5000")
