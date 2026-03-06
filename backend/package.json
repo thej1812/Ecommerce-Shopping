@@ -10,6 +10,8 @@
     "test-admin": "node test-admin.js",
     "update-admin": "node update-admin.js",
     "change-password": "node change-admin-password.js",
+    "test-reviews": "node test-reviews.js",
+    "verify-reviews": "node verify-review-visibility.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
