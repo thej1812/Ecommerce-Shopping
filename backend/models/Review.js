@@ -5,12 +5,14 @@ const reviewSchema = new mongoose.Schema(
     user: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
-      required: true
+      required: true,
+      index: true
     },
     product: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Product",
-      required: true
+      required: true,
+      index: true
     },
     order: {
       type: mongoose.Schema.Types.ObjectId,
@@ -25,16 +27,23 @@ const reviewSchema = new mongoose.Schema(
     },
     description: {
       type: String,
-      required: true
+      required: true,
+      trim: true
     },
     reviewImage: {
-      type: String // Cloudinary URL
+      type: String, // Cloudinary secure_url
+      default: null
     }
   },
-  { timestamps: true }
+  { 
+    timestamps: true // Creates createdAt and updatedAt automatically
+  }
 );
 
 // Ensure one review per user per product per order
 reviewSchema.index({ user: 1, product: 1, order: 1 }, { unique: true });
+
+// Index for faster product review queries
+reviewSchema.index({ product: 1, createdAt: -1 });
 
 export default mongoose.model("Review", reviewSchema);
