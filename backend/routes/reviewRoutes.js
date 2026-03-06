@@ -7,56 +7,92 @@ import upload, { uploadToCloudinary } from "../middleware/upload.js";
 const router = express.Router();
 
 /* =========================
-   ADD REVIEW (ONLY IF ORDERED)
+   ADD REVIEW (ONLY IF DELIVERED)
 ========================= */
 router.post(
-  "/:productId",
+  "/:productId/:orderId",
   authMiddleware,
-  upload.fields([
-    { name: "images", maxCount: 5 },
-    { name: "video", maxCount: 1 }
-  ]),
+  upload.single("reviewImage"),
   async (req, res) => {
     try {
-      const hasOrdered = await Order.findOne({
-        userId: req.user.id,
-        "items.product": req.params.productId
+      const { productId, orderId } = req.params;
+      const { rating, description } = req.body;
+
+      // Check if order exists and belongs to user
+      const order = await Order.findOne({
+        _id: orderId,
+        userId: req.user.id
       });
 
-      if (!hasOrdered) {
-        return res.status(403).json({
-          message: "Only buyers can review this product"
+      if (!order) {
+        return res.status(404).json({
+          message: "Order not found"
         });
       }
 
-      // Upload images to Cloudinary
-      const imageUrls = [];
-      if (req.files?.images) {
-        for (const file of req.files.images) {
-          const url = await uploadToCloudinary(file, "ecommerce-reviews");
-          imageUrls.push(url);
-        }
+      // Check if order is delivered
+      if (order.status !== "Delivered") {
+        return res.status(403).json({
+          message: "You can only review delivered products"
+        });
       }
 
-      // Upload video to Cloudinary
-      let videoUrl = null;
-      if (req.files?.video && req.files.video[0]) {
-        videoUrl = await uploadToCloudinary(req.files.video[0], "ecommerce-reviews");
+      // Check if product is in the order
+      const productInOrder = order.products.find(
+        p => p._id?.toString() === productId || p.productId?.toString() === productId
+      );
+
+      if (!productInOrder) {
+        return res.status(403).json({
+          message: "Product not found in this order"
+        });
       }
 
+      // Check if user already reviewed this product for this order
+      const existingReview = await Review.findOne({
+        user: req.user.id,
+        product: productId,
+        order: orderId
+      });
+
+      if (existingReview) {
+        return res.status(400).json({
+          message: "You have already reviewed this product for this order"
+        });
+      }
+
+      // Upload image to Cloudinary if provided
+      let reviewImageUrl = null;
+      if (req.file) {
+        reviewImageUrl = await uploadToCloudinary(req.file, "ecommerce-reviews");
+      }
+
+      // Create review
       const review = new Review({
         user: req.user.id,
-        product: req.params.productId,
-        rating: Number(req.body.rating),
-        comment: req.body.comment,
-        images: imageUrls,
-        video: videoUrl
+        product: productId,
+        order: orderId,
+        rating: Number(rating),
+        description,
+        reviewImage: reviewImageUrl
       });
 
       await review.save();
-      res.json({ message: "Review added successfully" });
+      
+      res.json({ 
+        message: "Review added successfully",
+        review
+      });
     } catch (error) {
-      console.error(error);
+      console.error("Add review error:", error);
+      
+      // Handle duplicate review error
+      if (error.code === 11000) {
+        return res.status(400).json({
+          message: "You have already reviewed this product for this order"
+        });
+      }
+      
       res.status(500).json({ message: "Failed to add review" });
     }
   }
@@ -65,15 +101,54 @@ router.post(
 /* =========================
    GET REVIEWS FOR PRODUCT
 ========================= */
-router.get("/:productId", async (req, res) => {
+router.get("/product/:productId", async (req, res) => {
   try {
     const reviews = await Review.find({
       product: req.params.productId
-    }).populate("user", "name");
+    })
+    .populate("user", "name")
+    .sort({ createdAt: -1 });
 
     res.json(reviews);
   } catch (error) {
+    console.error("Get reviews error:", error);
     res.status(500).json({ message: "Failed to fetch reviews" });
+  }
+});
+
+/* =========================
+   CHECK IF USER CAN REVIEW
+========================= */
+router.get("/can-review/:productId/:orderId", authMiddleware, async (req, res) => {
+  try {
+    const { productId, orderId } = req.params;
+
+    // Check if order exists and is delivered
+    const order = await Order.findOne({
+      _id: orderId,
+      userId: req.user.id,
+      status: "Delivered"
+    });
+
+    if (!order) {
+      return res.json({ canReview: false, reason: "Order not delivered" });
+    }
+
+    // Check if already reviewed
+    const existingReview = await Review.findOne({
+      user: req.user.id,
+      product: productId,
+      order: orderId
+    });
+
+    if (existingReview) {
+      return res.json({ canReview: false, reason: "Already reviewed" });
+    }
+
+    res.json({ canReview: true });
+  } catch (error) {
+    console.error("Check review error:", error);
+    res.status(500).json({ message: "Failed to check review status" });
   }
 });
 
