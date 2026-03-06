@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import ProductImageSlider from "../components/ProductImageSlider";
 import { CartContext } from "../context/CartContext";
 import RelatedProducts from "../components/RelatedProducts";
+import ProductReviews from "../components/ProductReviews";
 
 export default function ProductDetail() {
   const { id } = useParams();
@@ -120,6 +121,11 @@ export default function ProductDetail() {
           category={product.category?._id || product.category}
           productId={product._id}
         />
+      </div>
+
+      {/* CUSTOMER REVIEWS */}
+      <div className="max-w-6xl mx-auto px-1 md:px-0">
+        <ProductReviews productId={product._id} />
       </div>
 
       {/* FOOTER */}
