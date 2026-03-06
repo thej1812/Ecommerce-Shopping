@@ -12,19 +12,29 @@ const reviewSchema = new mongoose.Schema(
       ref: "Product",
       required: true
     },
+    order: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Order",
+      required: true
+    },
     rating: {
       type: Number,
       min: 1,
       max: 5,
       required: true
     },
-    comment: {
-      type: String
+    description: {
+      type: String,
+      required: true
     },
-    images: [String],
-    video: String
+    reviewImage: {
+      type: String // Cloudinary URL
+    }
   },
   { timestamps: true }
 );
+
+// Ensure one review per user per product per order
+reviewSchema.index({ user: 1, product: 1, order: 1 }, { unique: true });
 
 export default mongoose.model("Review", reviewSchema);
