@@ -18,6 +18,7 @@ import AdminCategories from "./pages/AdminCategories";
 import ProductDetail from "./pages/ProductDetail";
 import AdminProductImages from "./pages/AdminProductImages";
 import NewArrival from "./pages/NewArrival";
+import AddReview from "./pages/AddReview";
 
 import { Routes, Route, useLocation } from "react-router-dom";
 
@@ -40,6 +41,7 @@ export default function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/my-orders" element={<MyOrders />} />
         <Route path="/new-arrivals" element={<NewArrival />} />
+        <Route path="/add-review/:productId/:orderId" element={<AddReview />} />
 
         <Route
           path="/admin"
