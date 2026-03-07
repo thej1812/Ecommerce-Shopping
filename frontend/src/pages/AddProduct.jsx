@@ -86,7 +86,7 @@ export default function AddProduct() {
         {/* LOGOUT */}
         <button
           onClick={handleLogout}
-          className="text-sm text-red-600 hover:underline"
+          className="text-sm text-red-600 hover:underline cursor-pointer"
         >
           Logout
         </button>
@@ -175,7 +175,7 @@ export default function AddProduct() {
         <button
           type="button"
           onClick={submit}
-          className="w-full bg-black text-white py-3 text-sm hover:bg-gray-900 transition rounded"
+          className="w-full bg-black text-white py-3 text-sm hover:bg-gray-900 transition rounded cursor-pointer"
         >
           Add Product
         </button>
