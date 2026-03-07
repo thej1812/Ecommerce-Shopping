@@ -13,6 +13,18 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* Global cursor pointer for interactive elements */
+a,
+button,
+[role="button"],
+[type="button"],
+[type="submit"],
+[type="reset"],
+select,
+.cursor-pointer {
+  cursor: pointer;
+}
+
 a {
   font-weight: 500;
   color: #646cff;
