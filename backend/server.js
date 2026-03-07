@@ -15,7 +15,7 @@ connectDB();
 
 const app = express();
 
-/* ✅ ADD THIS */
+/* ✅ CORS Configuration */
 const allowedOrigins = [
   "http://localhost:5173",
   "http://localhost:5174",
@@ -23,13 +23,19 @@ const allowedOrigins = [
   "https://ecommerce-shopping-theta.vercel.app",
   "https://ecommerce-shopping-tdvj.vercel.app",
   "https://ecommerce-shopping-pqwx.vercel.app",
-  "https://ecommerce-shopping-lmya.vercel.app"
+  "https://ecommerce-shopping-lmya.vercel.app",
+  "https://ecommerce-shopping-a41r.vercel.app"
 ];
 
 app.use(
   cors({
     origin: function (origin, callback) {
       if (!origin) return callback(null, true); // allow Postman, server requests
+
+      // Allow all Vercel preview deployments
+      if (origin.includes('.vercel.app')) {
+        return callback(null, true);
+      }
 
       if (allowedOrigins.includes(origin)) {
         callback(null, true);
