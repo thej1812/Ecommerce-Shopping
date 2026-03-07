@@ -10,7 +10,7 @@ const isDevelopment = window.location.hostname === 'localhost' ||
 
 const autoDetectedUrl = isDevelopment
   ? "http://localhost:5000"
-  : "https://ecommerce-shopping-3-t8d5.onrender.com";
+  : "https://ecommerce-shopping-4-3wdo.onrender.com";
 
 // Use environment variable if set, otherwise use auto-detection
 export const API_URL = envApiUrl || autoDetectedUrl;
