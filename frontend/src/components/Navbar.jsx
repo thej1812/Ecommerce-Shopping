@@ -105,7 +105,7 @@ export default function Navbar() {
       <div className="flex items-center justify-between relative z-50">
 
         {/* MOBILE HAMBURGER */}
-        <button onClick={() => setOpen(!open)} className="md:hidden text-2xl">
+        <button onClick={() => setOpen(!open)} className="md:hidden text-2xl cursor-pointer">
           {open ? "✕" : "☰"}
         </button>
 
@@ -126,7 +126,7 @@ export default function Navbar() {
             <div ref={dropdownRef} className="relative">
               <button
                 onClick={() => setCatOpen(!catOpen)}
-                className="flex items-center gap-1"
+                className="flex items-center gap-1 cursor-pointer"
               >
                 Categories
                 <span className={`text-xs transition-transform ${catOpen ? "rotate-180" : ""}`}>
@@ -146,7 +146,7 @@ export default function Navbar() {
                         navigate(`/products?category=${cat._id}`);
                         setCatOpen(false);
                       }}
-                      className="block w-full text-left px-5 py-3 text-sm hover:bg-gray-100"
+                      className="block w-full text-left px-5 py-3 text-sm hover:bg-gray-100 cursor-pointer"
                     >
                       {cat.name}
                     </button>
@@ -171,7 +171,7 @@ export default function Navbar() {
                 localStorage.clear();
                 navigate("/login");
               }}
-              className="text-sm text-red-500 "
+              className="text-sm text-red-500 cursor-pointer"
             >
               Logout
             </button>
@@ -194,7 +194,7 @@ export default function Navbar() {
               navigate(`/products?category=${e.target.value}`);
               setOpen(false);
             }}
-            className="px-4 py-2 "
+            className="px-4 py-2 cursor-pointer"
           >
             <option value="">Categories</option>
             {categories.map(cat => (
