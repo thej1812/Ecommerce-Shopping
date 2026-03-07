@@ -80,7 +80,7 @@ export default function AdminProducts() {
         {/* LOGOUT */}
         <button
           onClick={handleLogout}
-          className="text-sm text-red-600 hover:underline"
+          className="text-sm text-red-600 hover:underline cursor-pointer"
         >
           Logout
         </button>
@@ -153,7 +153,7 @@ export default function AdminProducts() {
 
                   <button
                     onClick={() => updateQuantity(product._id)}
-                    className="bg-black text-white px-4 py-1 text-sm"
+                    className="bg-black text-white px-4 py-1 text-sm cursor-pointer"
                   >
                     Update
                   </button>
@@ -163,7 +163,7 @@ export default function AdminProducts() {
                       setDeleteId(product._id);
                       setDeleteName(product.name);
                     }}
-                    className="bg-red-600 text-white px-4 py-1 text-sm"
+                    className="bg-red-600 text-white px-4 py-1 text-sm cursor-pointer"
                   >
                     Delete
                   </button>
@@ -194,14 +194,14 @@ export default function AdminProducts() {
                   setDeleteId(null);
                   setDeleteName("");
                 }}
-                className="px-4 py-2 border text-sm"
+                className="px-4 py-2 border text-sm cursor-pointer"
               >
                 Cancel
               </button>
 
               <button
                 onClick={confirmDelete}
-                className="px-4 py-2 bg-red-600 text-white text-sm"
+                className="px-4 py-2 bg-red-600 text-white text-sm cursor-pointer"
               >
                 Yes, Delete
               </button>
