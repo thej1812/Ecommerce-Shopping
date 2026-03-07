@@ -113,7 +113,7 @@ export default function Signup() {
 
           <button
             onClick={signup}
-            className="w-full border border-black py-3 text-sm font-[Mulish] hover:bg-black hover:text-white transition"
+            className="w-full border border-black py-3 text-sm font-[Mulish] hover:bg-black hover:text-white transition cursor-pointer"
           >
             Create Account
           </button>
