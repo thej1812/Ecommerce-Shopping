@@ -10,8 +10,15 @@ export default function Login() {
   const navigate = useNavigate();
 
   const login = async () => {
+    // Validation
     if (!form.email || !form.password) {
       setError("Please fill in all required fields");
+      return;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(form.email)) {
+      setError("Please enter a valid email address");
       return;
     }
 
@@ -32,7 +39,12 @@ export default function Login() {
         navigate("/products");
       }
     } catch (err) {
-      setError("Invalid email or password");
+      const errorMessage = err.response?.data?.message || err.response?.data;
+      if (typeof errorMessage === 'string') {
+        setError(errorMessage);
+      } else {
+        setError("Invalid email or password. Please try again.");
+      }
     }
   };
 
