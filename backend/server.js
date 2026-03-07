@@ -21,7 +21,8 @@ const allowedOrigins = [
   "http://localhost:5174",
   "http://localhost:4173",
   "https://ecommerce-shopping-theta.vercel.app",
-  "https://ecommerce-shopping-tdvj.vercel.app"
+  "https://ecommerce-shopping-tdvj.vercel.app",
+  "https://ecommerce-shopping-pqwx.vercel.app"
 ];
 
 app.use(
