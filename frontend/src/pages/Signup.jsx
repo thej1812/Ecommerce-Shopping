@@ -10,18 +10,37 @@ export default function Signup() {
   const navigate = useNavigate();
 
   const signup = async () => {
+    // Validation
     if (!form.name || !form.email || !form.password) {
       setError("Please fill in all required fields");
+      return;
+    }
+
+    if (form.password.length < 8) {
+      setError("Password must be at least 8 characters long");
+      return;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(form.email)) {
+      setError("Please enter a valid email address");
       return;
     }
 
     try {
       setError("");
       await axios.post(`${API_URL}/api/auth/signup`, form);
-      alert("Signup successful");
+      alert("Signup successful! Please login.");
       navigate("/login");
     } catch (err) {
-      setError("Signup failed. Please try again.");
+      const errorMessage = err.response?.data?.message || err.response?.data;
+      if (typeof errorMessage === 'string') {
+        setError(errorMessage);
+      } else if (errorMessage === "Email already registered") {
+        setError("This email is already registered. Please login instead.");
+      } else {
+        setError("Signup failed. Please try again.");
+      }
     }
   };
 
