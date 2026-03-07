@@ -85,6 +85,7 @@ export default function Products() {
                   px-4 py-2
                   text-xs tracking-widest
                   w-full md:w-fit
+                  cursor-pointer
                 "
               >
                 ADD TO CART
