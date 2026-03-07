@@ -83,14 +83,14 @@ export default function ProductDetail() {
                   <button
                     type="button"
                     onClick={handleAddToCart}
-                    className="bg-black text-white w-full md:w-auto px-10 py-3 text-xs tracking-widest"
+                    className="bg-black text-white w-full md:w-auto px-10 py-3 text-xs tracking-widest cursor-pointer"
                   >
                     ADD TO CART
                   </button>
                 ) : (
                   <button
                     disabled
-                    className="bg-gray-400 text-white w-full md:w-auto px-10 py-3 text-xs tracking-widest"
+                    className="bg-gray-400 text-white w-full md:w-auto px-10 py-3 text-xs tracking-widest cursor-not-allowed"
                   >
                     SOLD OUT
                   </button>
