@@ -139,7 +139,7 @@ export default function Checkout() {
           className={`w-full py-3 text-sm transition ${
             success || loading
               ? "bg-gray-400 cursor-not-allowed"
-              : "bg-black text-white hover:bg-gray-900"
+              : "bg-black text-white hover:bg-gray-900 cursor-pointer"
           }`}
         >
           {loading
