@@ -61,15 +61,15 @@ export default function AdminProductImages() {
             className="w-24 h-24 object-cover"
           />
 
-          <button onClick={() => moveImage(index, -1)}>
+          <button onClick={() => moveImage(index, -1)} className="cursor-pointer">
             ↑
           </button>
-          <button onClick={() => moveImage(index, 1)}>
+          <button onClick={() => moveImage(index, 1)} className="cursor-pointer">
             ↓
           </button>
 
           <button
-            className="text-red-600"
+            className="text-red-600 cursor-pointer"
             onClick={() => deleteImage(index)}
           >
             Delete
