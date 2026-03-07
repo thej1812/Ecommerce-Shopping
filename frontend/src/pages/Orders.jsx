@@ -61,7 +61,7 @@ export default function Orders() {
         {/* LOGOUT */}
         <button
           onClick={handleLogout}
-          className="text-sm text-red-600 hover:underline"
+          className="text-sm text-red-600 hover:underline cursor-pointer"
         >
           Logout
         </button>
