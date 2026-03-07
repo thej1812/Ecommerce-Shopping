@@ -80,7 +80,7 @@ export default function AdminCategories() {
         {/* LOGOUT */}
         <button
           onClick={handleLogout}
-          className="text-sm text-red-600 hover:underline"
+          className="text-sm text-red-600 hover:underline cursor-pointer"
         >
           Logout
         </button>
@@ -115,7 +115,7 @@ export default function AdminCategories() {
 
           <button
             onClick={addCategory}
-            className="bg-black text-white px-6 py-2 text-sm hover:bg-gray-900 transition"
+            className="bg-black text-white px-6 py-2 text-sm hover:bg-gray-900 transition cursor-pointer"
           >
             Add
           </button>
@@ -145,7 +145,7 @@ export default function AdminCategories() {
                   setDeleteId(cat._id);
                   setDeleteName(cat.name);
                 }}
-                className="text-xs text-red-600 hover:underline"
+                className="text-xs text-red-600 hover:underline cursor-pointer"
               >
                 Delete
               </button>
@@ -174,14 +174,14 @@ export default function AdminCategories() {
                   setDeleteId(null);
                   setDeleteName("");
                 }}
-                className="px-4 py-2 border text-sm"
+                className="px-4 py-2 border text-sm cursor-pointer"
               >
                 Cancel
               </button>
 
               <button
                 onClick={confirmDelete}
-                className="px-4 py-2 bg-red-600 text-white text-sm"
+                className="px-4 py-2 bg-red-600 text-white text-sm cursor-pointer"
               >
                 Yes, Delete
               </button>
