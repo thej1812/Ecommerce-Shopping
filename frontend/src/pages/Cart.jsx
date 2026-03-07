@@ -59,7 +59,7 @@ export default function Cart() {
                 <div className="flex items-center gap-4">
                   <button
                     onClick={() => decreaseQty(item._id)}
-                    className="w-8 h-8 border rounded flex items-center justify-center hover:bg-gray-100"
+                    className="w-8 h-8 border rounded flex items-center justify-center hover:bg-gray-100 cursor-pointer"
                   >
                     −
                   </button>
@@ -70,7 +70,7 @@ export default function Cart() {
 
                   <button
                     onClick={() => increaseQty(item._id)}
-                    className="w-8 h-8 border rounded flex items-center justify-center hover:bg-gray-100"
+                    className="w-8 h-8 border rounded flex items-center justify-center hover:bg-gray-100 cursor-pointer"
                   >
                     +
                   </button>
