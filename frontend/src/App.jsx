@@ -1,18 +1,22 @@
 import "./App.css";
 
+// Components
 import Navbar from "./components/Navbar";
-import AdminProducts from "./pages/AdminProducts";
+import AdminRoute from "./components/AdminRoute";
 
+// Pages - Public
 import Home from "./pages/Home";
 import Products from "./pages/Products";
 import Cart from "./pages/Cart";
 import Checkout from "./pages/Checkout";
-import AdminDashboard from "./pages/AdminDashboard";
-import AddProduct from "./pages/AddProduct";
-import Orders from "./pages/Orders";
-import AdminRoute from "./components/AdminRoute";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
+
+// Pages - Admin
+import AdminDashboard from "./pages/AdminDashboard";
+import AdminProducts from "./pages/AdminProducts";
+import AddProduct from "./pages/AddProduct";
+import Orders from "./pages/Orders";
 import MyOrders from "./pages/MyOrders";
 import AdminCategories from "./pages/AdminCategories";
 import ProductDetail from "./pages/ProductDetail";
