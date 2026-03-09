@@ -4,8 +4,7 @@ import { CartContext } from "../context/CartContext";
 import { Link } from "react-router-dom";
 
 export default function Cart() {
-  const { cart, increaseQty, decreaseQty, total } =
-    useContext(CartContext);
+  const { cart, increaseQty, decreaseQty, total } = useContext(CartContext);
 
   if (cart.length === 0) {
     return (
