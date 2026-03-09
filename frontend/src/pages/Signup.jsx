@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 export default function Signup() {
   const [form, setForm] = useState({});
   const [showPassword, setShowPassword] = useState(false);
-  const [error, setError] = useState(""); // ✅ error message
+  const [error, setError] = useState("");
   const navigate = useNavigate();
 
   const signup = async () => {
