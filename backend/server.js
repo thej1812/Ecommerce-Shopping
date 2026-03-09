@@ -15,7 +15,7 @@ connectDB();
 
 const app = express();
 
-/* ✅ CORS Configuration */
+/* ✅ CORS Configuration - Allow multiple deployment environments */
 const allowedOrigins = [
   "http://localhost:5173",
   "http://localhost:5174",
