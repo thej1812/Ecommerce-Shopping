@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 
 export default function ProductReviews({ productId }) {
   const [reviews, setReviews] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
   const [selectedImage, setSelectedImage] = useState(null);
 
   useEffect(() => {
@@ -14,12 +14,12 @@ export default function ProductReviews({ productId }) {
       .then(data => {
         console.log("Reviews fetched:", data);
         setReviews(Array.isArray(data) ? data : []);
-        setLoading(false);
+        setIsLoading(false);
       })
       .catch(err => {
         console.error("Error fetching reviews:", err);
         setReviews([]);
-        setLoading(false);
+        setIsLoading(false);
       });
   }, [productId]);
 
@@ -55,7 +55,7 @@ export default function ProductReviews({ productId }) {
     setSelectedImage(null);
   };
 
-  if (loading) {
+  if (isLoading) {
     return (
       <div className="mt-12 py-8">
         <p className="text-center text-gray-500">Loading reviews...</p>
