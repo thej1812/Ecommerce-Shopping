@@ -6,6 +6,11 @@ import adminMiddleware from "../middleware/adminMiddleware.js";
 
 const router = express.Router();
 
+/**
+ * Admin Routes
+ * All routes require authentication and admin privileges
+ */
+
 /* ================= CREATE NEW ADMIN ================= */
 /* Only existing admins can create new admin accounts */
 router.post("/create-admin", authMiddleware, adminMiddleware, async (req, res) => {
