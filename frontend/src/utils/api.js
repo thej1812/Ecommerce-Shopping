@@ -15,9 +15,6 @@ const autoDetectedUrl = isDevelopment
 // Use environment variable if set, otherwise use auto-detection
 export const API_URL = envApiUrl || autoDetectedUrl;
 
-// Log for debugging (you can remove this later)
-console.log('🔗 API URL:', API_URL);
-console.log('📍 Environment:', isDevelopment ? 'Development' : 'Production');
-console.log('🌐 Hostname:', window.location.hostname);
+// Production ready - debug logs removed
 
 
