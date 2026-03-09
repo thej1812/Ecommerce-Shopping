@@ -1,5 +1,9 @@
 import mongoose from "mongoose";
 
+/**
+ * Review Schema for product reviews
+ * @description Stores customer reviews with ratings, descriptions, and optional images
+ */
 const reviewSchema = new mongoose.Schema(
   {
     user: {
