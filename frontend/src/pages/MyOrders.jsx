@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 export default function MyOrders() {
   const [orders, setOrders] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     fetchOrders();
@@ -19,11 +19,11 @@ export default function MyOrders() {
       .then(res => res.json())
       .then(data => {
         setOrders(data);
-        setLoading(false);
+        setIsLoading(false);
       })
       .catch(err => {
         console.error(err);
-        setLoading(false);
+        setIsLoading(false);
       });
   };
 
@@ -61,7 +61,7 @@ export default function MyOrders() {
     }
   };
 
-  if (loading) {
+  if (isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <p className="text-gray-500">Loading your orders...</p>
