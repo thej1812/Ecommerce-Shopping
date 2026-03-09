@@ -13,7 +13,8 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Global cursor pointer for interactive elements */
+/* ===== GLOBAL CURSOR STYLES ===== */
+/* Apply pointer cursor to all interactive elements */
 a,
 button,
 [role="button"],
