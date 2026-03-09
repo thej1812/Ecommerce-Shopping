@@ -50,10 +50,10 @@ app.use(
 );
 
 
-/* ✅ KEEP THIS */
+/* ✅ MIDDLEWARE */
 app.use(express.json());
 
-/* ✅ ROUTES */
+/* ✅ API ROUTES */
 app.use("/api/products", productRoutes);
 app.use("/api/orders", orderRoutes);
 app.use("/api/auth", authRoutes);
