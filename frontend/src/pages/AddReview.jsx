@@ -13,7 +13,7 @@ export default function AddReview() {
   const [description, setDescription] = useState("");
   const [reviewImage, setReviewImage] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [canReview, setCanReview] = useState(true);
 
   useEffect(() => {
@@ -60,7 +60,7 @@ export default function AddReview() {
       return;
     }
 
-    setLoading(true);
+    setIsLoading(true);
 
     try {
       const formData = new FormData();
@@ -86,7 +86,7 @@ export default function AddReview() {
       console.error(error);
       alert(error.response?.data?.message || "Failed to submit review");
     } finally {
-      setLoading(false);
+      setIsLoading(false);
     }
   };
 
@@ -208,10 +208,10 @@ export default function AddReview() {
             </button>
             <button
               type="submit"
-              disabled={loading}
+              disabled={isLoading}
               className="flex-1 px-6 py-3 bg-black text-white rounded-lg hover:bg-gray-800 transition disabled:bg-gray-400 cursor-pointer disabled:cursor-not-allowed"
             >
-              {loading ? "Submitting..." : "Submit Review"}
+              {isLoading ? "Submitting..." : "Submit Review"}
             </button>
           </div>
         </form>
