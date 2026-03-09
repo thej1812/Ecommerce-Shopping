@@ -2,7 +2,10 @@ import multer from "multer";
 import cloudinary from "../config/cloudinary.js";
 import { Readable } from "stream";
 
-// Use memory storage for Cloudinary uploads
+/**
+ * Multer configuration for handling file uploads
+ * Uses memory storage for direct Cloudinary upload
+ */
 const storage = multer.memoryStorage();
 
 const upload = multer({
