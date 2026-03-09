@@ -6,7 +6,7 @@ import { API_URL } from "../utils/api.js";
 
 export default function Navbar() {
   const [categories, setCategories] = useState([]);
-  const [open, setOpen] = useState(false);       // mobile menu
+  const [open, setOpen] = useState(false); // mobile menu
   const [catOpen, setCatOpen] = useState(false); // desktop dropdown
   const [sticky, setSticky] = useState(false);
 
