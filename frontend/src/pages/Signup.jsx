@@ -7,6 +7,7 @@ export default function Signup() {
   const [form, setForm] = useState({});
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
   const navigate = useNavigate();
 
   const signup = async () => {
@@ -30,11 +31,16 @@ export default function Signup() {
     try {
       setError("");
       await axios.post(`${API_URL}/api/auth/signup`, form);
-      alert("Signup successful! Please login.");
-      navigate("/login");
+
+      setSuccess("Signup successful! Please login.");
+
+      setTimeout(() => {
+        navigate("/login");
+      }, 1500);
+
     } catch (err) {
       const errorMessage = err.response?.data?.message || err.response?.data;
-      if (typeof errorMessage === 'string') {
+      if (typeof errorMessage === "string") {
         setError(errorMessage);
       } else if (errorMessage === "Email already registered") {
         setError("This email is already registered. Please login instead.");
@@ -123,10 +129,17 @@ export default function Signup() {
             </span>
           </div>
 
-          {/* ✅ ERROR MESSAGE (ABOVE BUTTON) */}
+          {/* ERROR MESSAGE */}
           {error && (
-            <p className="text-[10px] text-red-500 mb-2 font-[Mulish]">
+            <p className="text-sm text-red-500 mb-2 font-[Mulish]">
               {error}
+            </p>
+          )}
+
+          {/* SUCCESS MESSAGE */}
+          {success && (
+            <p className="text-sm text-green-600 mb-2 font-[Mulish]">
+              {success}
             </p>
           )}
 
