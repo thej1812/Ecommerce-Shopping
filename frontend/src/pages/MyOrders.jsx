@@ -86,7 +86,7 @@ export default function MyOrders() {
             <p className="text-gray-500 mb-4">You haven't placed any orders yet</p>
             <Link
               to="/products"
-              className="inline-block bg-black text-white px-6 py-3 rounded-lg hover:bg-gray-800 transition"
+              className="inline-block bg-black text-white px-6 py-3  hover:bg-white hover:text-black hover:border hover:border-black transition"
             >
               Start Shopping
             </Link>
