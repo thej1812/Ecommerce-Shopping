@@ -95,15 +95,25 @@ export default function NewArrival() {
 
     {/* COPYRIGHT */}
     <p className="text-xs text-gray-500 font-[Mulish] text-center">
-      © Copyrights-2025
+      © Copyrights-2025 | Crafted by <a href="https://www.instagram.com/laaz_creative?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" className="underline">Laaz Creative</a>
     </p>
 
     {/* SOCIAL ICONS */}
-    <div className="flex gap-5">
-      <img src="/youtube.png" alt="YouTube" className="h-5 w-6" />
-      <img src="/whatsapp.png" alt="Whatsapp" className="h-5 w-5" />
-      <img src="/instagram.png" alt="Instagram" className="h-5 w-5" />
-    </div>
+     <div className="flex gap-5">
+
+  <a href="https://youtube.com/@radhi_vedha?si=i9Bew2CEhv519gBH" target="_blank" rel="noopener noreferrer">
+    <img src="/youtube.png" alt="YouTube" className="h-5 w-6 cursor-pointer" />
+  </a>
+
+  <a href="https://wa.me/919962658353" target="_blank" rel="noopener noreferrer">
+    <img src="/whatsapp.png" alt="Whatsapp" className="h-5 w-5 cursor-pointer" />
+  </a>
+
+  <a href="https://www.instagram.com/radhi_vedha" target="_blank" rel="noopener noreferrer">
+    <img src="/instagram.png" alt="Instagram" className="h-5 w-5 cursor-pointer" />
+  </a>
+
+</div>
   </div>
     </section>
   );
