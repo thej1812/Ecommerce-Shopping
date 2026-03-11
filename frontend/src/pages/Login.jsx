@@ -47,88 +47,93 @@ export default function Login() {
       }
     }
   };
+return (
+ <div className="flex justify-center bg-white pt-12 pb-6 md:pt-4 px-4">
+    <div className="w-full max-w-5xl min-h-[720px] md:min-h-[520px] grid grid-cols-1 md:grid-cols-2 border rounded-2xl overflow-hidden">
 
-  return (
-    <div className="flex items-start justify-center bg-white pt-12 pb-4 md:pt-4 ">
-      <div className="w-full max-w-5xl h-[520px] md:h-[520px] grid grid-cols-1 md:grid-cols-2 border rounded-2xl overflow-hidden">
+      {/* LEFT IMAGE */}
+      <div className="hidden md:block">
+        <img
+          src="/girl2.png"
+          alt="Login"
+          className="w-full h-full object-cover hover:grayscale transition"
+        />
+      </div>
 
-        {/* LEFT IMAGE */}
-        <div className="hidden md:block">
-          <img
-            src="/girl2.png"
-            alt="Login"
-            className="w-full h-full object-cover hover:grayscale transition"
+      {/* RIGHT CONTENT */}
+      <div className="p-8 md:p-7 flex flex-col justify-center">
+        <h2 className="text-5xl font-[italiana] mb-2">
+          Welcome back
+        </h2>
+
+       <h6 className="font-[italiana] mb-2">
+         Log in to continue exploring our collection.
+        </h6>
+
+        <div className="mb-6 mt-6">
+          <label className="text-sm text-gray-600 mb-2  block font-[Mulish]">
+            Email address
+          </label>
+          <input
+            type="email"
+            onChange={(e) =>
+              setForm({ ...form, email: e.target.value })
+            }
+            className="w-full border rounded-md px-4 py-2 focus:ring-1 focus:ring-black outline-none"
           />
         </div>
 
-        {/* RIGHT CONTENT */}
-        <div className="p-10 md:p-7 flex flex-col justify-center">
-          <h2 className="text-3xl font-[italiana] mb-2">
-            Welcome back
-          </h2>
+        <div className="mb-6">
+          <label className="text-sm text-gray-600 mb-2 block font-[Mulish]">
+            Password
+          </label>
 
-          <p className="text-sm font-[Mulish] text-gray-500 mb-8">
-            Don’t have an account?{" "}
-            <span
-              onClick={() => navigate("/signup")}
-              className="underline cursor-pointer text-black"
-            >
-              Create one
-            </span>
-          </p>
-
-          <div className="mb-6">
-            <label className="text-sm text-gray-600 mb-2 block font-[Mulish]">
-              Email address
-            </label>
-            <input
-              type="email"
-              onChange={(e) =>
-                setForm({ ...form, email: e.target.value })
-              }
-              className="w-full border rounded-md px-4 py-2 focus:ring-1 focus:ring-black outline-none"
-            />
-          </div>
-
-          <div className="mb-6">
-            <label className="text-sm text-gray-600 mb-2 block font-[Mulish]">
-              Password
-            </label>
-            <input
-  type={showPassword ? "text" : "password"}
-  onChange={(e) =>
-    setForm({ ...form, password: e.target.value })
-  }
-  className="w-full border rounded-md px-4 py-2 focus:ring-1 focus:ring-black outline-none"
-/>
-
-          </div>
-              <div className="flex items-center gap-2 mb-6 font-[Mulish]">
-            <input
-              type="checkbox"
-              checked={showPassword}
-              onChange={() => setShowPassword(!showPassword)}
-              className="accent-black"
-            />
-            <span className="text-sm text-gray-600">
-              Show password
-            </span>
-          </div>
-          {/* ERROR MESSAGE */}
-          {error && (
-            <p className="text-sm text-red-500 mb-4 font-[Mulish]">
-              {error}
-            </p>
-          )}
-
-          <button
-            onClick={login}
-            className="w-full border border-black py-3 text-sm font-[Mulish] hover:bg-black hover:text-white transition cursor-pointer"
-          >
-            Log in
-          </button>
+          <input
+            type={showPassword ? "text" : "password"}
+            onChange={(e) =>
+              setForm({ ...form, password: e.target.value })
+            }
+            className="w-full border rounded-md px-4 py-2 focus:ring-1 focus:ring-black outline-none"
+          />
         </div>
+
+        <div className="flex items-center gap-2 mb-6 font-[Mulish]">
+          <input
+            type="checkbox"
+            checked={showPassword}
+            onChange={() => setShowPassword(!showPassword)}
+            className="accent-black"
+          />
+          <span className="text-sm text-gray-600">
+            Show password
+          </span>
+        </div>
+
+        {/* ERROR MESSAGE */}
+        {error && (
+          <p className="text-sm text-red-500 mb-4 font-[Mulish]">
+            {error}
+          </p>
+        )}
+
+        <button
+          onClick={login}
+          className="w-full border border-black py-3 text-sm font-[Mulish] hover:bg-black hover:text-white transition cursor-pointer"
+        >
+          Log in
+        </button>
+         <p className="text-sm font-[Mulish] text-gray-500 mb-8 mt-8 text-center" >
+          Don’t have an account?{" "}
+          <span
+            onClick={() => navigate("/signup")}
+            className="underline cursor-pointer text-black"
+          >
+            Create one
+          </span>
+        </p>
       </div>
+
     </div>
-  );
+  </div>
+);
 }
