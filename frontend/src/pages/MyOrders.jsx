@@ -96,7 +96,7 @@ export default function MyOrders() {
             {orders.map((order) => (
               <div
                 key={order._id}
-                className="bg-white rounded-lg shadow-md p-6"
+                className="bg-white  shadow-md p-6"
               >
                 {/* Order Header */}
                 <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4 pb-4 border-b">
@@ -114,7 +114,7 @@ export default function MyOrders() {
                   </div>
                   <div className="mt-2 md:mt-0">
                     <span
-                      className={`px-4 py-2 rounded-full text-sm font-medium ${getStatusColor(
+                      className={`px-4 py-2  text-sm font-medium ${getStatusColor(
                         order.status
                       )}`}
                     >
@@ -147,14 +147,14 @@ export default function MyOrders() {
                   {order.products?.map((product, index) => (
                     <div
                       key={index}
-                      className="flex items-center gap-4 p-4 bg-gray-50 rounded-lg"
+                      className="flex items-center gap-4 p-4 bg-gray-50 "
                     >
                       {/* Product Image */}
                       {product.images && product.images.length > 0 && (
                         <img
                           src={product.images[0]}
                           alt={product.name}
-                          className="w-20 h-20 object-cover rounded"
+                          className="w-20 h-20 object-cover "
                         />
                       )}
 
@@ -175,7 +175,7 @@ export default function MyOrders() {
                       {order.status === "Delivered" && (
                         <Link
                           to={`/add-review/${product._id}/${order._id}`}
-                          className="px-4 py-2 bg-black text-white text-sm rounded-lg hover:bg-gray-800 transition"
+                          className="px-4 py-2 bg-black text-white text-sm font-[mulish] hover:bg-gray-800 transition"
                         >
                           Add Review
                         </Link>
