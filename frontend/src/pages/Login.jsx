@@ -48,7 +48,7 @@ export default function Login() {
     }
   };
 return (
- <div className="flex justify-center bg-white pt-12 pb-6 md:pt-4 px-4">
+ <div className="flex justify-center bg-white pt-12 pb-6 md:pt-2 px-4">
     <div className="w-full max-w-5xl min-h-[720px] md:min-h-[520px] grid grid-cols-1 md:grid-cols-2 border rounded-2xl overflow-hidden">
 
       {/* LEFT IMAGE */}
@@ -61,7 +61,7 @@ return (
       </div>
 
       {/* RIGHT CONTENT */}
-      <div className="p-8 md:p-7 flex flex-col justify-center">
+      <div className="p-8 md:p-6 flex flex-col justify-center">
         <h2 className="text-5xl font-[italiana] mb-2">
           Welcome back
         </h2>
