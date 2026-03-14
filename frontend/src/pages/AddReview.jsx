@@ -14,16 +14,14 @@ export default function AddReview() {
   const [reviewImage, setReviewImage] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [canReview, setCanReview] = useState(true);
+  const [successMessage, setSuccessMessage] = useState("");
 
   useEffect(() => {
-    // Fetch product details
     fetch(`${API_URL}/api/products/${productId}`)
       .then(res => res.json())
       .then(data => setProduct(data))
       .catch(err => console.error(err));
 
-    // Check if user can review
     fetch(`${API_URL}/api/reviews/can-review/${productId}/${orderId}`, {
       headers: {
         Authorization: localStorage.getItem("token")
@@ -80,8 +78,12 @@ export default function AddReview() {
         }
       );
 
-      alert("Review submitted successfully!");
-      navigate(`/product/${productId}`);
+      setSuccessMessage("Review submitted successfully!");
+
+      setTimeout(() => {
+        navigate(`/product/${productId}`);
+      }, 2000);
+
     } catch (error) {
       console.error(error);
       alert(error.response?.data?.message || "Failed to submit review");
@@ -100,17 +102,17 @@ export default function AddReview() {
 
   return (
     <div className="min-h-screen bg-gray-50 py-8 px-4 font-[Mulish]">
-      <div className="max-w-2xl mx-auto bg-white rounded-lg shadow-md p-6 md:p-8">
-        {/* Header */}
-        <h1 className="text-2xl md:text-3xl font-[italiana] text-center mb-2">
+      <div className="max-w-2xl mx-auto bg-white shadow-md p-6 md:p-8">
+        
+        <h1 className="text-4xl md:text-3xl font-[italiana] text-center mb-2">
           Write a Review
         </h1>
-        <p className="text-sm text-gray-500 text-center mb-8">
+        <p className="text-md text-gray-500 text-center mb-8">
           Share your experience with this product
         </p>
 
         {/* Product Info */}
-        <div className="flex items-center gap-4 p-4 bg-gray-50 rounded-lg mb-8">
+        <div className="flex items-center gap-4 p-4 bg-gray-50 mb-8">
           {product.images && product.images.length > 0 && (
             <img
               src={product.images[0]}
@@ -126,13 +128,15 @@ export default function AddReview() {
 
         {/* Review Form */}
         <form onSubmit={handleSubmit} className="space-y-6">
+
           {/* Star Rating */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-3">
               Rating <span className="text-red-500">*</span>
             </label>
+
             <div className="flex gap-2">
-              {[1, 2, 3, 4, 5].map((star) => (
+              {[1,2,3,4,5].map((star) => (
                 <button
                   key={star}
                   type="button"
@@ -141,14 +145,13 @@ export default function AddReview() {
                   onMouseLeave={() => setHoverRating(0)}
                   className="text-3xl transition-colors"
                 >
-                  {star <= (hoverRating || rating) ? (
-                    <span className="text-yellow-400">★</span>
-                  ) : (
-                    <span className="text-gray-300">★</span>
-                  )}
+                  {star <= (hoverRating || rating) ?
+                    <span className="text-yellow-400">★</span> :
+                    <span className="text-gray-300">★</span>}
                 </button>
               ))}
             </div>
+
             {rating > 0 && (
               <p className="text-sm text-gray-600 mt-2">
                 {rating === 1 && "Poor"}
@@ -165,6 +168,7 @@ export default function AddReview() {
             <label className="block text-sm font-medium text-gray-700 mb-2">
               Your Review <span className="text-red-500">*</span>
             </label>
+
             <textarea
               value={description}
               onChange={(e) => setDescription(e.target.value)}
@@ -180,40 +184,51 @@ export default function AddReview() {
             <label className="block text-sm font-medium text-gray-700 mb-2">
               Upload Photo (Optional)
             </label>
+
             <input
               type="file"
               accept="image/*"
               onChange={handleImageChange}
-              className="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-medium file:bg-black file:text-white hover:file:bg-gray-800"
+              className="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:border-0 file:text-sm file:font-medium file:bg-black file:text-white hover:file:bg-gray-800"
             />
+
             {imagePreview && (
               <div className="mt-4">
                 <img
                   src={imagePreview}
                   alt="Preview"
-                  className="w-full max-w-xs h-48 object-cover rounded-lg"
+                  className="w-full max-w-xs h-48 object-cover"
                 />
               </div>
             )}
           </div>
 
-          {/* Submit Buttons */}
+          {/* Buttons */}
           <div className="flex gap-4 pt-4">
             <button
               type="button"
               onClick={() => navigate("/my-orders")}
-              className="flex-1 px-6 py-3 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition cursor-pointer"
+              className="flex-1 px-6 py-3 border border-gray-300 text-gray-700 hover:bg-gray-50 transition cursor-pointer"
             >
               Cancel
             </button>
+
             <button
               type="submit"
               disabled={isLoading}
-              className="flex-1 px-6 py-3 bg-black text-white rounded-lg hover:bg-gray-800 transition disabled:bg-gray-400 cursor-pointer disabled:cursor-not-allowed"
+              className="flex-1 px-6 py-3 bg-black text-white hover:bg-gray-800 transition disabled:bg-gray-400 cursor-pointer disabled:cursor-not-allowed"
             >
               {isLoading ? "Submitting..." : "Submit Review"}
             </button>
           </div>
+
+          {/* Success Message */}
+          {successMessage && (
+            <p className="text-green-600 text-center mt-4 font-medium">
+              {successMessage}
+            </p>
+          )}
+
         </form>
       </div>
     </div>
