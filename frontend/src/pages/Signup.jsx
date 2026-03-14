@@ -51,26 +51,19 @@ export default function Signup() {
   };
 
   return (
-    <div className="flex items-start justify-center bg-white pt-4 pb-4">
-      <div className="w-full max-w-5xl h-[660px] md:h-[520px] grid grid-cols-1 md:grid-cols-2 border rounded-2xl overflow-y-hidden">
+    <div className="flex items-start justify-center bg-white pt-12 md:pt-4 pb-4">
+      <div className="w-full max-w-5xl min-h-[720px] md:min-h-[420px] grid grid-cols-1 md:grid-cols-2 border rounded-2xl overflow-y-hidden">
         
         {/* LEFT */}
-        <div className="p-10 md:p-7">
-          <h2 className="text-3xl font-[italiana] mb-2">
+        <div className="pt-20 pb-10 pl-10 pr-10 md:pt-8 md:pb-0 md:pl-12 md:pr-12">
+          <h2 className=" text-5xl font-[italiana] mb-2">
             Create an account
           </h2>
 
-          <p className="text-sm font-[Mulish] text-gray-500 mb-8">
-            Already have an account?{" "}
-            <span
-              onClick={() => navigate("/login")}
-              className="underline cursor-pointer text-black"
-            >
-              Log in
-            </span>
-          </p>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+           <h6 className="font-[italiana] mb-12 md:mb-2">
+         Join to explore amazing products.
+        </h6>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-4 mb-6 md:mb-0 ">
             <div>
               <label className="text-sm text-gray-600 mb-2 block font-[Mulish]">
                 First name
@@ -149,13 +142,23 @@ export default function Signup() {
           >
             Create Account
           </button>
+          <p className="text-sm font-[Mulish] text-gray-500 mb-8 md:mb-0 mt-8 md:mt-2 text-center">
+            Already have an account?{" "}
+            <span
+              onClick={() => navigate("/login")}
+              className="underline cursor-pointer text-black"
+            >
+              Log in
+            </span>
+          </p>
+
         </div>
 
         {/* RIGHT IMAGE */}
         <div className="hidden md:block">
           <img
             src="/girl3.png"
-            className="w-full h-full object-cover hover:grayscale transition"
+            className="w-full h-[510px] object-cover hover:grayscale transition"
             alt="Signup"
           />
         </div>
